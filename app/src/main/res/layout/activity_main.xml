@@ -8,14 +8,13 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <LinearLayout
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <fragment
-                android:id="@+id/home"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        </LinearLayout>
+            android:layout_height="match_parent"
+            app:navGraph="@navigation/navigation"
+            app:defaultNavHost="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
