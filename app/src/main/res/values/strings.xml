@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">The Dangoniser</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="upcoming_events">Upcoming Events:</string>
+    <string name="sample_event">Sample Event</string>
+    <string name="hello_blank_fragment">sans</string>
+</resources>
