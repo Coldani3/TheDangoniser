@@ -3,7 +3,9 @@ package com.coldani3.dangoniser
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import com.coldani3.dangoniser.data.CalendarEventsManager
+import com.coldani3.dangoniser.data.CalendarEvent
+import com.coldani3.dangoniser.data.DateIndexedMap
+import com.coldani3.dangoniser.data.TodoListItem
 import com.coldani3.dangoniser.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        val eventsManager: CalendarEventsManager = CalendarEventsManager();
+        val eventsManager: DateIndexedMap<CalendarEvent> = DateIndexedMap();
+        val todoListManager: DateIndexedMap<TodoListItem> = DateIndexedMap();
     }
 }
