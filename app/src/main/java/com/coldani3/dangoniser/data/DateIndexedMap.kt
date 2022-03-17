@@ -7,18 +7,14 @@ class DateIndexedMap<T> {
     private var map: HashMap<Date, MutableList<T>> = hashMapOf();
 
     constructor() {
-        loadEvents();
-    }
-
-    private fun loadEvents() {
 
     }
 
     public fun getByDate(date: Date): List<T> {
-        if (map.containsKey(date)) {
-            return map[date]!!;
+        return if (map.containsKey(date)) {
+            map[date]!!;
         } else {
-            return emptyList();
+            emptyList();
         }
     }
 

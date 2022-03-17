@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.databinding.FragmentHomeBinding;
 import java.util.*
@@ -39,5 +40,7 @@ class HomeFragment : Fragment() {
         val calendar: Calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         val date: Date = calendar.time;
+
+        calendarView.findNavController().navigate(R.id.action_homeFragment_to_eventListFragment);
     }
 }
