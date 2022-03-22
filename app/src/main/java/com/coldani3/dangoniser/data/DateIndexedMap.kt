@@ -4,13 +4,9 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class DateIndexedMap<T> {
-    private var map: HashMap<Date, MutableList<T>> = hashMapOf();
+    private var map: HashMap<Calendar, MutableList<T>> = hashMapOf();
 
-    constructor() {
-
-    }
-
-    public fun getByDate(date: Date): List<T> {
+    public fun getByDate(date: Calendar): List<T> {
         return if (map.containsKey(date)) {
             map[date]!!;
         } else {
@@ -18,7 +14,7 @@ class DateIndexedMap<T> {
         }
     }
 
-    public fun add(date: Date, newObj: T) {
+    public fun add(date: Calendar, newObj: T) {
         if (map.containsKey(date)) {
             map[date]!!.add(newObj);
         } else {
@@ -26,7 +22,11 @@ class DateIndexedMap<T> {
         }
     }
 
-    public fun removeAllOnDay(date: Date) {
+    public fun removeAllOnDay(date: Calendar) {
         map.remove(date);
+    }
+
+    public fun getAllDatesInMap() : MutableSet<Calendar> {
+        return map.keys;
     }
 }
