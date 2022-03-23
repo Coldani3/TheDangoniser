@@ -4,4 +4,6 @@
     <string name="upcoming_events">Upcoming Events:</string>
     <string name="sample_event">Sample Event</string>
     <string name="hello_blank_fragment">sans</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

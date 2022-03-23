@@ -42,12 +42,38 @@
             android:background="@drawable/component_border"
             android:padding="5dp"
             android:id="@+id/todoList">
-            <CheckBox
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sample todo">
+                android:layout_height="wrap_content">
+                <com.coldani3.dangoniser.components.TodoListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
-            </CheckBox>
+            <!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal">-->
+<!--                <CheckBox-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:text="Sample todo"-->
+<!--                    android:layout_alignParentLeft="true"/>-->
+<!--                <Button-->
+<!--                    android:id="@+id/edit_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginRight="3dp"-->
+<!--                    android:text="@string/edit"-->
+<!--                    android:layout_toLeftOf="@id/delete_button"/>-->
+<!--                <Button-->
+<!--                    android:id="@+id/delete_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="@string/delete"-->
+<!--                    android:layout_alignParentRight="true"/>-->
+<!--            </RelativeLayout>-->
         </ScrollView>
 
     </LinearLayout>

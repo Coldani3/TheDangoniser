@@ -42,16 +42,14 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,
             R.layout.fragment_home,container,false);
 
-        binding.homeCalendarView.travelTo(Util.calendarToDateData(Calendar.getInstance()));
         binding.homeCalendarView.setMarkedStyle(MarkStyle.BACKGROUND);
+        binding.homeCalendarView.travelTo(Util.calendarToDateData(Calendar.getInstance()));
         binding.homeCalendarView.setOnDateClickListener( object : OnDateClickListener() {
-            @Override
             override fun onDateClick(view: View, dateData: DateData) {
                 dateChanged(view, dateData);
             }
         } );
 //        binding.homeCalendarView.setOnMonthChangeListener(object : OnMonthChangeListener() {
-//            @Override
 //            override fun onMonthChange(year: Int, month: Int) {
 //                monthChanged(year, month);
 //            }
