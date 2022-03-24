@@ -1,6 +1,7 @@
 package com.coldani3.dangoniser.components
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -27,6 +28,12 @@ class TodoListItemView : RelativeLayout {
         binding.checkbox.setOnClickListener { View.OnClickListener { view -> callChecked(view) } };
         binding.deleteButton.setOnClickListener { View.OnClickListener { view -> callDelete(view) }};
         binding.editButton.setOnClickListener { View.OnClickListener { view -> callEdit(view) }};
+
+        val attributes: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.TodoListItemView, 0, 0);
+        binding.checkbox.text = attributes.getString(R.styleable.TodoListItemView_checkboxText);
+        binding.checkbox.isChecked = attributes.getBoolean(R.styleable.TodoListItemView_checked, false);
+        attributes.recycle();
+
     }
 
     public fun onChecked(unit: (View, Boolean) -> Unit) {

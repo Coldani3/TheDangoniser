@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.coldani3.dangoniser.screens.home.HomeFragment"
-        android:orientation="vertical">
-
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        tools:context="com.coldani3.dangoniser.screens.home.HomeFragment">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/upcoming_events" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/scroll_margin"
-            android:background="@drawable/component_border"
-            android:padding="5dp"
-            android:id="@+id/upcoming_events">
-
-<!--            <com.coldani3.dangoniser.components.EventListItemView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-            <Button
+            <!-- TODO: Update blank fragment layout -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sample_event" />
+                android:text="@string/upcoming_events"
+                android:autoSizeTextType="uniform"
+                android:autoSizePresetSizes="@array/title_sizes"/>
 
-        </ScrollView>
-
-        <sun.bob.mcalendarview.MCalendarView
-            android:id="@+id/home_calendar_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context="com.coldani3.dangoniser.MainActivity"
-            android:layout_marginHorizontal="5dp"/>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/scroll_margin"
-            android:background="@drawable/component_border"
-            android:padding="5dp"
-            android:id="@+id/todoList">
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.coldani3.dangoniser.components.TodoListItemView
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scroll_margin"
+                android:background="@drawable/component_border"
+                android:padding="5dp"
+                android:id="@+id/upcoming_events">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <com.coldani3.dangoniser.components.EventListItemView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        custom:text="Test"/>
+                </LinearLayout>
+
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="380dp"
+                android:layout_height="380dp"
+                android:id="@+id/calendar_container">
+                <sun.bob.mcalendarview.MCalendarView
+                    android:id="@+id/home_calendar_view"
+                    android:layout_width="380dp"
+                    android:layout_height="380dp"
+                    tools:context="com.coldani3.dangoniser.MainActivity"
+                    android:layout_marginHorizontal="5dp"
+                    android:background="@drawable/component_border"/>
             </LinearLayout>
-        </ScrollView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/general_notes"
-            android:autoSizeTextType="uniform"
-            android:autoSizePresetSizes="@array/title_sizes"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scroll_margin"
+                android:background="@drawable/component_border"
+                android:padding="5dp"
+                android:id="@+id/todoList">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.coldani3.dangoniser.components.TodoListItemView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        custom:checkboxText="Test todo"/>
+                </LinearLayout>
+            </ScrollView>
 
-        <EditText
-            android:id="@+id/general_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/general_notes"
+                android:autoSizeTextType="uniform"
+                android:autoSizePresetSizes="@array/title_sizes"/>
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/general_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

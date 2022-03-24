@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EventListItemView">
+        <attr name="text" format="string" localization="suggested"/>
+    </declare-styleable>
+    <declare-styleable name="TodoListItemView">
+        <attr name="checkboxText" format="string" localization="suggested"/>
+        <attr name="checked" format="boolean" localization="suggested"/>
+    </declare-styleable>
+</resources>
