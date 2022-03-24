@@ -26,5 +26,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         val eventsManager: DateIndexedMap<CalendarEvent> = DateIndexedMap();
         val todoListManager: DateIndexedMap<TodoListItem> = DateIndexedMap();
+        val DATE_PASS_ID: String = "date";
     }
 }

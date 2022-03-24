@@ -23,7 +23,7 @@ class TodoListItemView : RelativeLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         inflate(context, R.layout.todo_list_item, this);
-        binding = TodoListItemBinding.inflate(LayoutInflater.from(context), this.parent as ViewGroup);
+        binding = TodoListItemBinding.inflate(LayoutInflater.from(context), this);//.parent as ViewGroup);
         binding.checkbox.setOnClickListener { View.OnClickListener { view -> callChecked(view) } };
         binding.deleteButton.setOnClickListener { View.OnClickListener { view -> callDelete(view) }};
         binding.editButton.setOnClickListener { View.OnClickListener { view -> callEdit(view) }};

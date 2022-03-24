@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.coldani3.dangoniser.MainActivity
@@ -18,11 +19,6 @@ import sun.bob.mcalendarview.listeners.OnDateClickListener
 import sun.bob.mcalendarview.listeners.OnMonthChangeListener
 import sun.bob.mcalendarview.vo.DateData
 import java.util.*
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -64,16 +60,16 @@ class HomeFragment : Fragment() {
     fun dateChanged(view: View, dateData: DateData) {
         val calendar: Calendar = Calendar.getInstance();
         calendar.set(dateData.year, dateData.month, dateData.day);
-        val date: Date = calendar.time;
 
-        view.findNavController().navigate(R.id.action_homeFragment_to_eventListFragment);
+        val data: Bundle = bundleOf(MainActivity.DATE_PASS_ID to calendar);
+        view.findNavController().navigate(R.id.action_homeFragment_to_eventListFragment, data);
     }
 
     fun monthChanged(year: Int, month: Int) {
         highlightDatesWithEvents(binding.homeCalendarView);
     }
 
-    fun highlightDatesWithEvents(calendar: MCalendarView) {
+    private fun highlightDatesWithEvents(calendar: MCalendarView) {
         for (date: Calendar in MainActivity.eventsManager.getAllDatesInMap()) {
             calendar.markDate(Util.calendarToDateData(date));
         }
