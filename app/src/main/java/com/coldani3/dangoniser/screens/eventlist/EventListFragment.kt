@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
+import com.coldani3.dangoniser.data.CalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
 import java.util.*
 
@@ -40,6 +41,8 @@ class EventListFragment : Fragment() {
         var day: Int = selectedDate.get(Calendar.DAY_OF_MONTH);
 
         binding.eventsForDay.text = "Events for day $year/$month/$day";
+
+        binding.events.addEvent(CalendarEvent("Sample Event"));
 
         return binding.root;
     }
