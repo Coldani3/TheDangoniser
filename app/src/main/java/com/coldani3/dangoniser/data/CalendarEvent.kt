@@ -1,5 +1,7 @@
 package com.coldani3.dangoniser.data
 
+import com.coldani3.dangoniser.Util
+import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import java.util.*
 
 class CalendarEvent {
@@ -23,5 +25,16 @@ class CalendarEvent {
 
     public fun updateLocation(newLocation: String) {
         this.location = newLocation;
+    }
+
+    companion object {
+        fun fromDBObject(event: DBCalendarEvent): CalendarEvent {
+            val eventOut: CalendarEvent = CalendarEvent(event.eventName,
+                Util.millisToCalendar(event.date),
+                Util.millisToCalendar(event.until),
+                event.location);
+            eventOut.updateNotes(event.notes);
+            return eventOut;
+        }
     }
 }
