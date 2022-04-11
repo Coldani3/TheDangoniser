@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.data.CalendarEvent
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
+import kotlinx.coroutines.launch
 import java.util.*
 
 private const val ARG_PARAM1 = "param1"
@@ -43,10 +45,13 @@ class EventListFragment : Fragment() {
 
         binding.eventsForDay.text = "Events for day $year/$month/$day";
 
-        val events: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
+        lifecycleScope.launch {
+            val events: List<DBCalendarEvent> =
+                MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
 
-        for (event in events) {
-            binding.events.addEvent(CalendarEvent.fromDBObject(event));
+            for (event in events) {
+                binding.events.addEvent(CalendarEvent.fromDBObject(event));
+            }
         }
 
         binding.events.addEvent(CalendarEvent("Sample Event"));

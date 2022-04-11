@@ -15,9 +15,5 @@ class Util {
             calendar.timeInMillis = millis;
             return calendar;
         }
-
-        fun <T>databaseAsyncExecuteQuery(database: RoomDatabase): T {
-
-        }
     }
 }

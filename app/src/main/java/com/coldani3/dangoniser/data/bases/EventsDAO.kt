@@ -8,15 +8,15 @@ import androidx.room.Query
 @Dao
 interface EventsDAO {
     @Query("SELECT * FROM dbcalendarevent")
-    fun getAllEvents(): List<DBCalendarEvent>;
+    suspend fun getAllEvents(): List<DBCalendarEvent>;
     @Query("SELECT * FROM dbcalendarevent WHERE date = :dateMillis")
-    fun getEventsForDay(dateMillis: Long): List<DBCalendarEvent>;
+    suspend fun getEventsForDay(dateMillis: Long): List<DBCalendarEvent>;
 
     @Insert
-    fun insertEvent(event: DBCalendarEvent);
+    suspend fun insertEvent(event: DBCalendarEvent);
     @Insert
-    fun insertEvents(vararg events: DBCalendarEvent);
+    suspend fun insertEvents(vararg events: DBCalendarEvent);
 
     @Delete
-    fun deleteEvent(event: DBCalendarEvent);
+    suspend fun deleteEvent(event: DBCalendarEvent);
 }
