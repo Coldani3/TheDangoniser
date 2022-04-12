@@ -30,6 +30,7 @@ class EventListItemView : RelativeLayout {
 
     fun setEventName(name: String) {
         eventName = name;
+        binding.eventName.text = eventName;
     }
 
     //R.id.action_<etc.>

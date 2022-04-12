@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/component_rounded_border">
+    android:background="@drawable/component_rounded_border"
+    android:padding="@dimen/scroll_margin">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/event_name"
         android:layout_gravity="left"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:autoSizeTextType="uniform"
+        android:autoSizePresetSizes="@array/title_sizes"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

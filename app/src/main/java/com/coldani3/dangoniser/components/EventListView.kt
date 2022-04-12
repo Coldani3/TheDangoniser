@@ -1,29 +1,23 @@
 package com.coldani3.dangoniser.components
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import android.widget.ScrollView
+import android.widget.RelativeLayout
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.data.CalendarEvent
-import com.coldani3.dangoniser.databinding.EventListBinding
 
-
-class EventListView : LinearLayout {
-    private var binding: EventListBinding;
-
+class EventListView : ListItemView {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        inflate(context, R.layout.event_list, this);
-        binding = EventListBinding.inflate(LayoutInflater.from(context), this);
-    }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    public fun addEvent(event: CalendarEvent) {
+    public override fun addItem(event: CalendarEvent) {
         val newItem: EventListItemView = EventListItemView(context);
+        newItem.layoutParams = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         newItem.setEventName(event.eventName);
         binding.eventsList.addView(newItem);
+        newItem.invalidate();
     }
 }

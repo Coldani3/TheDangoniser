@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.coldani3.dangoniser.MainActivity
@@ -50,11 +49,11 @@ class EventListFragment : Fragment() {
                 MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
 
             for (event in events) {
-                binding.events.addEvent(CalendarEvent.fromDBObject(event));
+                binding.events.addItem(CalendarEvent.fromDBObject(event));
             }
         }
 
-        binding.events.addEvent(CalendarEvent("Sample Event"));
+        binding.events.addItem(CalendarEvent("Sample Event"));
 
         return binding.root;
     }
