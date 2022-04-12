@@ -10,7 +10,7 @@ import com.coldani3.dangoniser.data.CalendarEvent
 import com.coldani3.dangoniser.databinding.ItemListBinding
 
 
-abstract class ListItemView : LinearLayout {
+abstract class AbstractListItemView<T> : LinearLayout {
     protected var binding: ItemListBinding;
 
     constructor(context: Context) : this(context, null)
@@ -20,5 +20,5 @@ abstract class ListItemView : LinearLayout {
         binding = ItemListBinding.inflate(LayoutInflater.from(context), this);
     }
 
-    public abstract fun addItem(event: CalendarEvent);
+    public abstract fun addItem(event: T);
 }

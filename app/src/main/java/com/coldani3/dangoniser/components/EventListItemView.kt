@@ -13,7 +13,7 @@ import com.coldani3.dangoniser.databinding.EventListItemBinding
 class EventListItemView : RelativeLayout {
     private lateinit var binding: EventListItemBinding;
     private var eventName: String = "";
-    private var navPath: Int = 0;
+    private var navPath: Int = -1;
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -39,7 +39,7 @@ class EventListItemView : RelativeLayout {
     }
 
     protected fun onClicked(view: View) {
-        if (navPath != 0) {
+        if (navPath != -1) {
             view.findNavController().navigate(navPath);
         }
     }
