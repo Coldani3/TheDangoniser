@@ -4,7 +4,7 @@ import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.bases.DBTodoListItem
 import java.util.*
 
-class TodoListItem {
+class TodoData {
     public var checked: Boolean;
     public var title: String;
     public var forDate: Calendar;
@@ -24,8 +24,8 @@ class TodoListItem {
     }
 
     companion object {
-        fun fromDBObject(item: DBTodoListItem): TodoListItem {
-            return TodoListItem(item.name, item.checked, Util.millisToCalendar(item.forDate));
+        fun fromDBObject(item: DBTodoListItem): TodoData {
+            return TodoData(item.name, item.checked, Util.millisToCalendar(item.forDate));
         }
     }
 }

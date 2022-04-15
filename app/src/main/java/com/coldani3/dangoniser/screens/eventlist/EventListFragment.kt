@@ -9,7 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
-import com.coldani3.dangoniser.data.CalendarEvent
+import com.coldani3.dangoniser.data.EventData
+import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
 import kotlinx.coroutines.launch
@@ -49,11 +50,12 @@ class EventListFragment : Fragment() {
                 MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
 
             for (event in events) {
-                binding.events.addItem(CalendarEvent.fromDBObject(event));
+                binding.events.addItem(EventData.fromDBObject(event));
             }
         }
 
-        binding.events.addItem(CalendarEvent("Sample Event"));
+        binding.events.addItem(EventData("Sample Event"));
+        binding.todoList.addItem(TodoData("Sample todo"));
 
         return binding.root;
     }

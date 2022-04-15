@@ -3,10 +3,9 @@ package com.coldani3.dangoniser
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.room.Room
-import com.coldani3.dangoniser.data.CalendarEvent
+import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.DateIndexedMap
-import com.coldani3.dangoniser.data.TodoListItem
+import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DangoniserDatabase
 import com.coldani3.dangoniser.data.bases.DatabaseSingleton
 import com.coldani3.dangoniser.databinding.ActivityMainBinding
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         testCal.set(testCal.get(Calendar.YEAR), testCal.get(Calendar.MONTH), testCal.get(Calendar.DAY_OF_MONTH) - 3);
 
-        eventsManager.add(testCal, CalendarEvent("Test", testCal));
+        eventsManager.add(testCal, EventData("Test", testCal));
 
         if (!database.initialised()) {
             database.init(applicationContext, DangoniserDatabase::class.java, "dangoniser-database");
@@ -31,8 +30,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        val eventsManager: DateIndexedMap<CalendarEvent> = DateIndexedMap();
-        val todoListManager: DateIndexedMap<TodoListItem> = DateIndexedMap();
+        val eventsManager: DateIndexedMap<EventData> = DateIndexedMap();
+        val todoListManager: DateIndexedMap<TodoData> = DateIndexedMap();
         val DATE_PASS_ID: String = "date";
         var database: DatabaseSingleton<DangoniserDatabase> = DatabaseSingleton<DangoniserDatabase>();
     }

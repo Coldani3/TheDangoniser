@@ -3,15 +3,14 @@ package com.coldani3.dangoniser.components
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
-import com.coldani3.dangoniser.data.CalendarEvent
-import com.coldani3.dangoniser.data.TodoListItem
+import com.coldani3.dangoniser.data.TodoData
 
-class TodoListView : AbstractListItemView<TodoListItem> {
+class TodoListView : AbstractListItemView<TodoData, TodoListItemView> {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    override fun addItem(event: TodoListItem) {
+    public override fun addItem(event: TodoData) {
         val item: TodoListItemView = TodoListItemView(context);
 
         item.layoutParams = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -20,5 +19,6 @@ class TodoListView : AbstractListItemView<TodoListItem> {
 
         binding.eventsList.addView(item);
         item.invalidate();
+        items.add(event);
     }
 }

@@ -20,38 +20,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/events"/>
-<!--        <ScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/component_border">-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-<!--                <com.coldani3.dangoniser.components.EventListItemView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"/>-->
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="To-do List for this day"/>
-        <ScrollView
+        <com.coldani3.dangoniser.components.TodoListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/component_border">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <com.coldani3.dangoniser.components.TodoListItemView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </ScrollView>
-
+            android:id="@+id/todo_list"/>
     </LinearLayout>
 </layout>

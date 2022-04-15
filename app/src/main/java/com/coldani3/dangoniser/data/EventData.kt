@@ -4,7 +4,7 @@ import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import java.util.*
 
-class CalendarEvent {
+class EventData {
     public var eventName: String;
     public var date: Calendar;
     public var until: Calendar;
@@ -28,8 +28,8 @@ class CalendarEvent {
     }
 
     companion object {
-        fun fromDBObject(event: DBCalendarEvent): CalendarEvent {
-            val eventOut: CalendarEvent = CalendarEvent(event.eventName,
+        fun fromDBObject(event: DBCalendarEvent): EventData {
+            val eventOut: EventData = EventData(event.eventName,
                 Util.millisToCalendar(event.date),
                 Util.millisToCalendar(event.until),
                 event.location);

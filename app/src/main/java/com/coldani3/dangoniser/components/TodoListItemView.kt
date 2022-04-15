@@ -2,17 +2,11 @@ package com.coldani3.dangoniser.components
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.os.Bundle
-import android.text.BoringLayout
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.coldani3.dangoniser.R
-import com.coldani3.dangoniser.data.TodoListItem
 import com.coldani3.dangoniser.databinding.TodoListItemBinding
 
 
