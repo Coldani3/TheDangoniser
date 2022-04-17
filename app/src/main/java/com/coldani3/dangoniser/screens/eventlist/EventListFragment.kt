@@ -1,14 +1,17 @@
 package com.coldani3.dangoniser.screens.eventlist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
+import com.coldani3.dangoniser.components.TodoListItemView
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
@@ -26,12 +29,13 @@ private const val ARG_PARAM2 = "param2"
  */
 class EventListFragment : Fragment() {
     private lateinit var selectedDate: Calendar;
+    private lateinit var binding: FragmentEventListBinding;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentEventListBinding>(inflater,
+        binding = DataBindingUtil.inflate<FragmentEventListBinding>(inflater,
             R.layout.fragment_event_list,container,false)
         selectedDate = arguments?.get(MainActivity.DATE_PASS_ID) as Calendar;
 
@@ -55,8 +59,25 @@ class EventListFragment : Fragment() {
         }
 
         binding.events.addItem(EventData("Sample Event"));
-        binding.todoList.addItem(TodoData("Sample todo"));
+        addTodo(TodoData("Sample todo"));
 
         return binding.root;
+    }
+
+    fun addTodo(todo: TodoData) {
+        binding.todoList.addItem(todo, ::onChecked, ::editPressed, ::deletePressed);
+    }
+
+    fun onChecked(view: View, checked: Boolean) {
+
+    }
+
+    fun editPressed(view: View) {
+        view.findNavController().navigate(R.id.action_eventListFragment_to_eventFragment);
+        Log.d(MainActivity.DEBUG_LOG_NAME, "Edit pressed.");
+    }
+
+    fun deletePressed(view: View) {
+
     }
 }

@@ -2,6 +2,7 @@ package com.coldani3.dangoniser
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.DateIndexedMap
@@ -34,5 +35,6 @@ class MainActivity : AppCompatActivity() {
         val todoListManager: DateIndexedMap<TodoData> = DateIndexedMap();
         val DATE_PASS_ID: String = "date";
         var database: DatabaseSingleton<DangoniserDatabase> = DatabaseSingleton<DangoniserDatabase>();
+        val DEBUG_LOG_NAME: String = "Dangoniser";
     }
 }
