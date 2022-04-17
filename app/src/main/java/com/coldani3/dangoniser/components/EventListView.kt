@@ -11,10 +11,15 @@ class EventListView : AbstractListItemView<EventData, EventListItemView> {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     override fun addItem(event: EventData) {
+        addItem(event, -1);
+    }
+
+    fun addItem(event: EventData, navPath: Int) {
         val item: EventListItemView = EventListItemView(context);
 
         item.layoutParams = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         item.setEventName(event.eventName);
+        item.setEventNavpath(navPath);
 
         binding.eventsList.addView(item);
         item.invalidate();

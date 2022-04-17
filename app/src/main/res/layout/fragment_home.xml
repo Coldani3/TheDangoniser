@@ -19,24 +19,29 @@
                 android:autoSizeTextType="uniform"
                 android:autoSizePresetSizes="@array/title_sizes"/>
 
-            <ScrollView
+            <com.coldani3.dangoniser.components.EventListView
+                android:id="@+id/upcoming_events"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/scroll_margin"
-                android:background="@drawable/component_border"
-                android:padding="5dp"
-                android:id="@+id/upcoming_events">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <com.coldani3.dangoniser.components.EventListItemView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        custom:text="Test"/>
-                </LinearLayout>
+                android:layout_height="wrap_content"/>
 
-            </ScrollView>
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/scroll_margin"-->
+<!--                android:background="@drawable/component_border"-->
+<!--                android:padding="5dp"-->
+<!--                android:id="@+id/upcoming_events">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <com.coldani3.dangoniser.components.EventListItemView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        custom:text="Test"/>-->
+<!--                </LinearLayout>-->
+
+<!--            </ScrollView>-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -51,23 +56,29 @@
                     android:background="@drawable/component_border"/>
             </LinearLayout>
 
-            <ScrollView
+            <com.coldani3.dangoniser.components.TodoListView
+                android:id="@+id/todo_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/scroll_margin"
-                android:background="@drawable/component_border"
-                android:padding="5dp"
-                android:id="@+id/todoList">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <com.coldani3.dangoniser.components.TodoListItemView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        custom:checkboxText="Test todo"/>
-                </LinearLayout>
-            </ScrollView>
+                android:layout_height="wrap_content"/>
+
+
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/scroll_margin"-->
+<!--                android:background="@drawable/component_border"-->
+<!--                android:padding="5dp"-->
+<!--                android:id="@+id/todoList">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <com.coldani3.dangoniser.components.TodoListItemView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        custom:checkboxText="Test todo"/>-->
+<!--                </LinearLayout>-->
+<!--            </ScrollView>-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -76,10 +87,14 @@
                 android:autoSizeTextType="uniform"
                 android:autoSizePresetSizes="@array/title_sizes"/>
 
-            <EditText
-                android:id="@+id/general_notes"
+            <com.coldani3.dangoniser.components.NotesView
+                android:id="@+id/general_notes_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+<!--            <EditText-->
+<!--                android:id="@+id/general_notes"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
         </LinearLayout>
     </ScrollView>

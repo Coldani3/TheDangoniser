@@ -14,12 +14,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/component_rounded_border">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CalendarEvent"
+                    android:layout_alignParentLeft="true"
                     android:layout_gravity="left"
-                    android:layout_alignParentLeft="true"/>
+                    android:text="Calendar Event:" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -28,14 +29,17 @@
                     android:text="Delete"/>
             </RelativeLayout>
             <EditText
+                android:id="@+id/event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/component_border">
+                android:background="@drawable/component_border"
+                android:layout_marginHorizontal="@dimen/scroll_margin">
                 <RelativeLayout
+                    android:id="@+id/date_weather"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -50,7 +54,8 @@
                         android:layout_height="wrap_content"
                         android:text="At:"/>
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:id="@+id/at_input"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
@@ -62,7 +67,8 @@
                         android:layout_height="wrap_content"
                         android:text="Until:"/>
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:id="@+id/until_input"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
@@ -74,9 +80,12 @@
                         android:layout_height="wrap_content"
                         android:text="Where:"/>
                     <EditText
+                        android:id="@+id/where_input"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:width="250dp"/>
                     <Button
+                        android:id="@+id/here_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Here"/>
@@ -90,6 +99,7 @@
                         android:layout_height="wrap_content"
                         android:text="Remind me:"/>
                     <Spinner
+                        android:id="@+id/reminder_dropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:spinnerMode="dropdown"/>

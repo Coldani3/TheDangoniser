@@ -23,9 +23,9 @@ class TodoListItemView : RelativeLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         inflate(context, R.layout.todo_list_item, this);
         binding = TodoListItemBinding.inflate(LayoutInflater.from(context), this);//.parent as ViewGroup);
-        binding.checkbox.setOnClickListener { View.OnClickListener { view -> callChecked(view) } };
-        binding.deleteButton.setOnClickListener { View.OnClickListener { view -> callDelete(view) }};
-        binding.editButton.setOnClickListener { View.OnClickListener { view -> callEdit(view) }};
+        binding.checkbox.setOnClickListener { view -> callChecked(view) };
+        binding.deleteButton.setOnClickListener { view -> callDelete(view) };
+        binding.editButton.setOnClickListener { view -> callEdit(view) };
 
         val attributes: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.TodoListItemView, 0, 0);
         binding.checkbox.text = attributes.getString(R.styleable.TodoListItemView_checkboxText);
@@ -42,7 +42,6 @@ class TodoListItemView : RelativeLayout {
 
     public fun onEditPress(unit: ((View) -> Unit)?) {
         if (unit != null) {
-            Log.d(MainActivity.DEBUG_LOG_NAME, "Todo Edit add");
             onEdit = unit;
         }
     }
@@ -71,6 +70,8 @@ class TodoListItemView : RelativeLayout {
         if (onEdit != null) {
             Log.d(MainActivity.DEBUG_LOG_NAME, "edit");
             onEdit!!(view);
+        } else {
+            Log.d(MainActivity.DEBUG_LOG_NAME, "edit null");
         }
     }
 

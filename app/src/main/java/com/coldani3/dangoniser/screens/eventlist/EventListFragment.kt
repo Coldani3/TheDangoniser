@@ -58,7 +58,7 @@ class EventListFragment : Fragment() {
             }
         }
 
-        binding.events.addItem(EventData("Sample Event"));
+        binding.events.addItem(EventData("Sample Event"), R.id.action_eventListFragment_to_eventFragment);
         addTodo(TodoData("Sample todo"));
 
         return binding.root;

@@ -9,11 +9,15 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.Util
+import com.coldani3.dangoniser.data.EventData
+import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.databinding.FragmentHomeBinding;
+import kotlinx.coroutines.launch
 import sun.bob.mcalendarview.MCalendarView
 import sun.bob.mcalendarview.MarkStyle
 import sun.bob.mcalendarview.listeners.OnDateClickListener
@@ -39,6 +43,13 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,
             R.layout.fragment_home,container,false);
 
+        binding.upcomingEvents.addItem(EventData("Test"), R.id.action_homeFragment_to_eventFragment);
+        binding.todoList.addItem(TodoData("Sample todo"));
+
+        lifecycleScope.launch {
+
+        }
+
         return binding.root;
     }
 
@@ -60,6 +71,10 @@ class HomeFragment : Fragment() {
         highlightDatesWithEvents(binding.homeCalendarView);
         //make sure the calendar actually displays
         //binding.homeCalendarView.invalidate();
+    }
+
+    fun eventClicked(view: View) {
+
     }
 
     fun dateChanged(view: View, dateData: DateData) {

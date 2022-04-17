@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         val eventsManager: DateIndexedMap<EventData> = DateIndexedMap();
         val todoListManager: DateIndexedMap<TodoData> = DateIndexedMap();
         val DATE_PASS_ID: String = "date";
+        val EVENT_DATA_PASS_ID: String = "eventData";
         var database: DatabaseSingleton<DangoniserDatabase> = DatabaseSingleton<DangoniserDatabase>();
         val DEBUG_LOG_NAME: String = "Dangoniser";
     }
