@@ -37,7 +37,16 @@ class EventListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate<FragmentEventListBinding>(inflater,
             R.layout.fragment_event_list,container,false)
-        selectedDate = arguments?.get(MainActivity.DATE_PASS_ID) as Calendar;
+
+        if (savedInstanceState != null) {
+            val calendar: Calendar? = savedInstanceState.getSerializable(DATE_KEY) as Calendar;
+
+            if (calendar != null) {
+                selectedDate = calendar!!;
+            }
+        } else if (arguments != null) {
+            selectedDate = arguments?.get(MainActivity.DATE_PASS_ID) as Calendar;
+        }
 
         if (selectedDate == null) {
             selectedDate = Calendar.getInstance();
@@ -54,7 +63,7 @@ class EventListFragment : Fragment() {
                 MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
 
             for (event in events) {
-                binding.events.addItem(EventData.fromDBObject(event));
+                binding.events.addItem(EventData(event));
             }
         }
 
@@ -62,6 +71,11 @@ class EventListFragment : Fragment() {
         addTodo(TodoData("Sample todo"));
 
         return binding.root;
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(DATE_KEY, selectedDate);
     }
 
     fun addTodo(todo: TodoData) {
@@ -79,5 +93,9 @@ class EventListFragment : Fragment() {
 
     fun deletePressed(view: View) {
 
+    }
+
+    companion object {
+        const val DATE_KEY = "eventListDate";
     }
 }

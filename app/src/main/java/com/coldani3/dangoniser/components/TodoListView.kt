@@ -8,7 +8,7 @@ import android.widget.RelativeLayout
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.data.TodoData
 
-class TodoListView : AbstractListItemView<TodoData, TodoListItemView> {
+class TodoListView : AbstractListView<TodoData, TodoListItemView> {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)

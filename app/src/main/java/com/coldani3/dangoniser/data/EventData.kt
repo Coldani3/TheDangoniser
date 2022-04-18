@@ -6,6 +6,7 @@ import java.io.Serializable
 import java.util.*
 
 class EventData : Serializable {
+    private var uid: Int = 0;
     public var eventName: String;
     public var date: Calendar;
     public var until: Calendar;
@@ -17,6 +18,14 @@ class EventData : Serializable {
         this.date = Calendar.getInstance();
         this.until = Calendar.getInstance();
         this.location = "";
+    }
+
+    constructor(event: DBCalendarEvent) {
+        this.eventName = event.eventName;
+        this.date = Util.millisToCalendar(event.date);
+        this.until = Util.millisToCalendar(event.until);
+        this.location = event.location;
+        this.notes = event.notes;
     }
 
     constructor(name: String, date: Calendar = Calendar.getInstance(), until: Calendar = date, location: String = "") {
@@ -35,12 +44,21 @@ class EventData : Serializable {
     }
 
     companion object {
-        fun fromDBObject(event: DBCalendarEvent): EventData {
-            val eventOut: EventData = EventData(event.eventName,
-                Util.millisToCalendar(event.date),
-                Util.millisToCalendar(event.until),
-                event.location);
-            eventOut.updateNotes(event.notes);
+        fun toDBObject(event: EventData): DBCalendarEvent {
+            var eventOut: DBCalendarEvent;
+
+            //if (event.uid != 0) {
+            eventOut = DBCalendarEvent(event.eventName, event.date.timeInMillis, event.until.timeInMillis, event.location, event.notes);
+            //} else {
+                //eventOut = DBCalendarEvent(event.eventName, event.date.timeInMillis, event.until.timeInMillis, event.location, event.notes);
+            //}
+
+            if (event.uid != 0) {
+                eventOut.uid = event.uid;
+            }
+
+
+
             return eventOut;
         }
     }

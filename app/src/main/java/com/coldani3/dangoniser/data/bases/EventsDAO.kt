@@ -1,9 +1,6 @@
 package com.coldani3.dangoniser.data.bases
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface EventsDAO {
@@ -16,6 +13,11 @@ interface EventsDAO {
     suspend fun insertEvent(event: DBCalendarEvent);
     @Insert
     suspend fun insertEvents(vararg events: DBCalendarEvent);
+
+    @Update
+    suspend fun updateEvent(event: DBCalendarEvent);
+    @Update
+    suspend fun updateEvents(vararg events: DBCalendarEvent);
 
     @Delete
     suspend fun deleteEvent(event: DBCalendarEvent);

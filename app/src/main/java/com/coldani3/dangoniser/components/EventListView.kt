@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.RelativeLayout
 import com.coldani3.dangoniser.data.EventData
 
-class EventListView : AbstractListItemView<EventData, EventListItemView> {
+class EventListView : AbstractListView<EventData, EventListItemView> {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)

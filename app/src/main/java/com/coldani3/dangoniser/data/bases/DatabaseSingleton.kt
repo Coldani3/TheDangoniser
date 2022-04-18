@@ -9,7 +9,7 @@ class DatabaseSingleton<T> where T : RoomDatabase {
     private var dbInitialsed: Boolean = false;
 
     fun init(context: Context, clazz: Class<T>, name: String) {
-        database = Room.databaseBuilder(context, clazz, name).build();
+        database = Room.databaseBuilder(context, clazz, name).fallbackToDestructiveMigration().build();
         dbInitialsed = true;
     }
 
