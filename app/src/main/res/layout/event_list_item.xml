@@ -5,15 +5,18 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/component_rounded_border"
-    android:padding="@dimen/scroll_margin">
+    android:padding="@dimen/scroll_margin"
+    android:layout_marginVertical="@dimen/scroll_margin">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/event_name"
         android:layout_gravity="left"
         android:layout_alignParentLeft="true"
         android:autoSizeTextType="uniform"
-        android:autoSizePresetSizes="@array/title_sizes"/>
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizePresetSizes="@array/title_sizes"
+        android:text="Test"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +24,6 @@
         android:layout_gravity="right"
         android:layout_alignParentRight="true"
         android:text="Delete"
-        android:background="@drawable/component_rounded_border_transparent_background"/>
-
-
+        android:background="@drawable/component_rounded_border_transparent_background"
+        android:layout_marginVertical="@dimen/scroll_margin"/>
 </merge>

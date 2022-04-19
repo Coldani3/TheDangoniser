@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
+        if (!database.initialised()) {
+            database.init(applicationContext, DangoniserDatabase::class.java, "dangoniser-database");
+        }
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         val testCal: Calendar = Calendar.getInstance();
@@ -24,10 +28,6 @@ class MainActivity : AppCompatActivity() {
         testCal.set(testCal.get(Calendar.YEAR), testCal.get(Calendar.MONTH), testCal.get(Calendar.DAY_OF_MONTH) - 3);
 
         eventsManager.add(testCal, EventData("Test", testCal));
-
-        if (!database.initialised()) {
-            database.init(applicationContext, DangoniserDatabase::class.java, "dangoniser-database");
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

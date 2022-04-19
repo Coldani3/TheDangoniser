@@ -8,6 +8,8 @@ interface EventsDAO {
     suspend fun getAllEvents(): List<DBCalendarEvent>;
     @Query("SELECT * FROM dbcalendarevent WHERE date = :dateMillis")
     suspend fun getEventsForDay(dateMillis: Long): List<DBCalendarEvent>;
+    @Query("SELECT * FROM dbcalendarevent WHERE uid = :uid")
+    suspend fun getEventByUID(uid: Int): DBCalendarEvent
 
     @Insert
     suspend fun insertEvent(event: DBCalendarEvent);

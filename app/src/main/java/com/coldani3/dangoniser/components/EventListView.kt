@@ -2,6 +2,7 @@ package com.coldani3.dangoniser.components
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.RelativeLayout
 import com.coldani3.dangoniser.data.EventData
 
@@ -22,8 +23,12 @@ class EventListView : AbstractListView<EventData, EventListItemView> {
         item.setEventNavpath(navPath);
         item.setEventData(event);
 
+        item.id = View.generateViewId();
+
+        item.visibility = View.VISIBLE;
+
         binding.eventsList.addView(item);
-        item.invalidate();
+        //item.invalidate();
 
         items.add(event);
     }

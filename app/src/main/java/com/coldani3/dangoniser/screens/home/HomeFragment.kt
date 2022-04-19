@@ -1,6 +1,7 @@
 package com.coldani3.dangoniser.screens.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
+import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentHomeBinding;
 import kotlinx.coroutines.launch
 import sun.bob.mcalendarview.MCalendarView
@@ -43,11 +45,24 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,
             R.layout.fragment_home,container,false);
 
-        binding.upcomingEvents.addItem(EventData("Test"), R.id.action_homeFragment_to_eventFragment);
         binding.todoList.addItem(TodoData("Sample todo"));
 
-        lifecycleScope.launch {
+        binding.upcomingEvents.setAddNavpath(R.id.action_homeFragment_to_eventFragment);
 
+        lifecycleScope.launch {
+            val data: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + data.size + " events!");
+
+            if (data.size > 0) {
+                for (event in data) {
+                    binding.upcomingEvents.addItem(EventData(event), R.id.action_homeFragment_to_eventFragment);
+                    Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded event with name: " + event.eventName + " (uid :" + event.uid + ")");
+                }
+            } else {
+                binding.upcomingEvents.addItem(EventData("Test"), R.id.action_homeFragment_to_eventFragment);
+            }
+
+            binding.upcomingEvents.invalidate();
         }
 
         return binding.root;

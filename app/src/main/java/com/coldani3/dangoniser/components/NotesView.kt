@@ -15,6 +15,7 @@ class NotesView : LinearLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         LinearLayout.inflate(context, R.layout.notes_view, this);
         binding = NotesViewBinding.inflate(LayoutInflater.from(context), this);
+        binding.notesText
     }
 
     fun getText(): String {

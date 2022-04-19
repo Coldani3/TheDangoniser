@@ -1,12 +1,14 @@
 package com.coldani3.dangoniser.data
 
+import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
+import com.coldani3.dangoniser.data.bases.DangoniserDatabase
 import java.io.Serializable
 import java.util.*
 
 class EventData : Serializable {
-    private var uid: Int = 0;
+    public var uid: Int = 0;
     public var eventName: String;
     public var date: Calendar;
     public var until: Calendar;
@@ -21,6 +23,7 @@ class EventData : Serializable {
     }
 
     constructor(event: DBCalendarEvent) {
+        this.uid = event.uid;
         this.eventName = event.eventName;
         this.date = Util.millisToCalendar(event.date);
         this.until = Util.millisToCalendar(event.until);
@@ -41,6 +44,10 @@ class EventData : Serializable {
 
     public fun updateLocation(newLocation: String) {
         this.location = newLocation;
+    }
+
+    public suspend fun updateDB() {
+        MainActivity.database.get().eventsDao().updateEvent(toDBObject(this));
     }
 
     companion object {

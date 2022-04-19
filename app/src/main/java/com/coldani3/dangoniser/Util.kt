@@ -8,8 +8,11 @@ import java.util.*
 
 class Util {
     companion object {
+        val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         fun calendarToDateData(date: Calendar) : DateData {
-            return DateData(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
+            //not adding 1 makes the month in datedata wrong for some reason.
+            return DateData(date.get(Calendar.YEAR), date.get(Calendar.MONTH) + 1, date.get(Calendar.DAY_OF_MONTH));
         }
 
         fun millisToCalendar(millis: Long) : Calendar {
@@ -19,11 +22,13 @@ class Util {
         }
 
         fun calendarToStringDate(date: Calendar): String {
-            val format: String = "yyyy-MM-dd HH:mm";
-
-            val dateFormat: DateFormat = SimpleDateFormat(format);
-
             return dateFormat.format(date.time);
+        }
+
+        fun stringDateToCalendar(date: String): Calendar {
+            val calendar: Calendar = Calendar.getInstance();
+            calendar.time = dateFormat.parse(date);
+            return calendar;
         }
     }
 }
