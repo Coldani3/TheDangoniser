@@ -50,6 +50,10 @@ class EventData : Serializable {
         MainActivity.database.get().eventsDao().updateEvent(toDBObject(this));
     }
 
+    public suspend fun deleteFromDB() {
+        MainActivity.database.get().eventsDao().deleteEvent(toDBObject((this)));
+    }
+
     companion object {
         fun toDBObject(event: EventData): DBCalendarEvent {
             var eventOut: DBCalendarEvent;

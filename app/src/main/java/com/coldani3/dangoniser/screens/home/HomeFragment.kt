@@ -49,22 +49,6 @@ class HomeFragment : Fragment() {
 
         binding.upcomingEvents.setAddNavpath(R.id.action_homeFragment_to_eventFragment);
 
-        lifecycleScope.launch {
-            val data: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();
-            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + data.size + " events!");
-
-            if (data.size > 0) {
-                for (event in data) {
-                    binding.upcomingEvents.addItem(EventData(event), R.id.action_homeFragment_to_eventFragment);
-                    Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded event with name: " + event.eventName + " (uid :" + event.uid + ")");
-                }
-            } else {
-                binding.upcomingEvents.addItem(EventData("Test"), R.id.action_homeFragment_to_eventFragment);
-            }
-
-            binding.upcomingEvents.invalidate();
-        }
-
         return binding.root;
     }
 
@@ -83,7 +67,25 @@ class HomeFragment : Fragment() {
 //            }
 //        });
 
-        highlightDatesWithEvents(binding.homeCalendarView);
+        lifecycleScope.launch {
+            val data: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + data.size + " events!");
+
+            if (data.size > 0) {
+                for (event in data) {
+                    val eventData: EventData = EventData(event);
+                    binding.upcomingEvents.addItem(eventData, R.id.action_homeFragment_to_eventFragment);
+                    MainActivity.eventsManager.add(eventData.date, eventData);
+                    Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded event with name: " + event.eventName + " (uid :" + event.uid + ")");
+                }
+            } else {
+                binding.upcomingEvents.addItem(EventData("Test"), R.id.action_homeFragment_to_eventFragment);
+            }
+
+            highlightDatesWithEvents(binding.homeCalendarView);
+
+            binding.upcomingEvents.invalidate();
+        }
         //make sure the calendar actually displays
         //binding.homeCalendarView.invalidate();
     }
