@@ -18,7 +18,7 @@ import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
-import com.coldani3.dangoniser.databinding.FragmentHomeBinding;
+import com.coldani3.dangoniser.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import sun.bob.mcalendarview.MCalendarView
 import sun.bob.mcalendarview.MarkStyle
@@ -37,6 +37,7 @@ import java.util.*
  */
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding;
+    private var calendarView: MCalendarView? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,14 +50,27 @@ class HomeFragment : Fragment() {
 
         binding.upcomingEvents.setAddNavpath(R.id.action_homeFragment_to_eventFragment);
 
+        if (calendarView != null) {
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Refresh calendar!");
+            binding.calendarContainer.removeView(calendarView);
+            calendarView = null;
+        }
+
+        calendarView = MCalendarView(this.context);
+
+        binding.calendarContainer.addView(calendarView)
+        binding.calendarContainer.invalidate();
+        calendarView!!.invalidate();
+
+
         return binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
-        binding.homeCalendarView.setMarkedStyle(MarkStyle.BACKGROUND);
-        binding.homeCalendarView.travelTo(Util.calendarToDateData(Calendar.getInstance()));
-        binding.homeCalendarView.setOnDateClickListener( object : OnDateClickListener() {
+        /*binding.homeCalendarView.*/calendarView!!.setMarkedStyle(MarkStyle.BACKGROUND);
+        /*binding.homeCalendarView.*/calendarView!!.travelTo(Util.calendarToDateData(Calendar.getInstance()));
+        /*binding.homeCalendarView.*/calendarView!!.setOnDateClickListener( object : OnDateClickListener() {
             override fun onDateClick(view: View, dateData: DateData) {
                 dateChanged(view, dateData);
             }
@@ -82,7 +96,7 @@ class HomeFragment : Fragment() {
                 binding.upcomingEvents.addItem(EventData("Test"), R.id.action_homeFragment_to_eventFragment);
             }
 
-            highlightDatesWithEvents(binding.homeCalendarView);
+            highlightDatesWithEvents(/*binding.homeCalendarView*/calendarView!!);
 
             binding.upcomingEvents.invalidate();
         }
@@ -103,7 +117,7 @@ class HomeFragment : Fragment() {
     }
 
     fun monthChanged(year: Int, month: Int) {
-        highlightDatesWithEvents(binding.homeCalendarView);
+        highlightDatesWithEvents(calendarView!!/*binding.homeCalendarView*/);
     }
 
     private fun highlightDatesWithEvents(calendar: MCalendarView) {
