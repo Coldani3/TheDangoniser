@@ -50,17 +50,17 @@ class HomeFragment : Fragment() {
 
         binding.upcomingEvents.setAddNavpath(R.id.action_homeFragment_to_eventFragment);
 
-        if (calendarView != null) {
+        /*if (calendarView != null) {
             Log.d(MainActivity.DEBUG_LOG_NAME, "Refresh calendar!");
             binding.calendarContainer.removeView(calendarView);
             calendarView = null;
-        }
+        }*/
 
-        calendarView = MCalendarView(this.context);
+        calendarView = binding.homeCalendarView;//MCalendarView(this.context);
 
-        binding.calendarContainer.addView(calendarView)
+        /*binding.calendarContainer.addView(calendarView)
         binding.calendarContainer.invalidate();
-        calendarView!!.invalidate();
+        calendarView!!.invalidate();*/
 
 
         return binding.root;
@@ -75,11 +75,6 @@ class HomeFragment : Fragment() {
                 dateChanged(view, dateData);
             }
         } );
-//        binding.homeCalendarView.setOnMonthChangeListener(object : OnMonthChangeListener() {
-//            override fun onMonthChange(year: Int, month: Int) {
-//                monthChanged(year, month);
-//            }
-//        });
 
         lifecycleScope.launch {
             val data: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();

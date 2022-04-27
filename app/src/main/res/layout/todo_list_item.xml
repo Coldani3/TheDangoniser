@@ -13,14 +13,16 @@
         android:layout_alignParentLeft="true"/>
     <LinearLayout
         android:layout_width="@dimen/itemTextWidth"
-        android:layout_height="50dp"
-        android:layout_toRightOf="@id/checkbox">
+        android:layout_height="@dimen/itemTextHeight"
+        android:layout_toRightOf="@id/checkbox"
+        android:layout_centerVertical="true">
         <TextView
             android:id="@+id/checkbox_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autoSizeTextType="uniform"
-            android:autoSizePresetSizes="@array/title_sizes"/>
+            android:autoSizePresetSizes="@array/title_sizes"
+            android:layout_centerVertical="true"/>
     </LinearLayout>
     <Button
         android:id="@+id/edit_button"

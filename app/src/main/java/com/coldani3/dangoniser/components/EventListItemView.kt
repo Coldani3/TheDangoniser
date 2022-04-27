@@ -1,6 +1,8 @@
 package com.coldani3.dangoniser.components
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.res.TypedArray
 import android.os.Bundle
 import android.util.AttributeSet
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -71,9 +74,7 @@ class EventListItemView : RelativeLayout {
         }
     }
 
-    protected fun onDeleteButtonPressed(view: View) {
-        Log.d(MainActivity.DEBUG_LOG_NAME, "Delete button pressed.");
-
+    protected fun deleteSelf(view: View) {
         if (onDelete != null) {
             onDelete!!(view, eventData);
         }
@@ -88,5 +89,20 @@ class EventListItemView : RelativeLayout {
 
             (parent as ViewGroup).removeView(this);
         }
+
+        Toast.makeText(context, R.string.deletedEvent, Toast.LENGTH_SHORT).show();
+    }
+
+    protected fun onDeleteButtonPressed(view: View) {
+        Log.d(MainActivity.DEBUG_LOG_NAME, "Delete button pressed.");
+
+        AlertDialog.Builder(context)
+            .setTitle("Delete Event")
+            .setMessage("Are you sure you want to delete this event?")
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.ok) {
+                    dialogInterface, whichButton -> deleteSelf(view);
+            }.setNegativeButton(android.R.string.cancel, null)
+            .show();
     }
 }

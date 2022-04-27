@@ -8,19 +8,22 @@
     android:padding="@dimen/scroll_margin"
     android:layout_marginVertical="@dimen/scroll_margin">
     <LinearLayout
-        android:layout_height="50dp"
+        android:layout_height="@dimen/itemTextHeight"
         android:layout_width="@dimen/itemTextWidth"
-        android:id="@+id/item_body">
+        android:id="@+id/item_body"
+        android:layout_centerVertical="true">
+
         <TextView
+            android:id="@+id/event_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/event_name"
-            android:layout_gravity="left"
             android:layout_alignParentLeft="true"
-            android:autoSizeTextType="uniform"
+            android:layout_gravity="left"
             android:autoSizeMinTextSize="12sp"
             android:autoSizePresetSizes="@array/title_sizes"
-            android:text="Test"/>
+            android:autoSizeTextType="uniform"
+            android:text="@string/test"
+            android:layout_centerVertical="true"/>
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"

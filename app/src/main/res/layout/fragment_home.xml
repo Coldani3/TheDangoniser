@@ -8,7 +8,7 @@
         tools:context="com.coldani3.dangoniser.screens.home.HomeFragment">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!-- TODO: Update blank fragment layout -->
@@ -29,16 +29,15 @@
                 android:layout_height="400dp"
                 android:id="@+id/calendar_container"
                 android:layout_marginHorizontal="5dp"
-                android:background="@drawable/component_border"> <!--android:layout_width="wrap_content"
+                android:background="@drawable/component_border"
+                android:orientation="horizontal"> <!--android:layout_width="wrap_content"
                 android:layout_height="wrap_content"-->
                 <!-- We will add this manually because MCalendar breaks with Fragments on activity restart for some reason. -->
-                <!--<sun.bob.mcalendarview.MCalendarView
+                <sun.bob.mcalendarview.MCalendarView
                     android:id="@+id/home_calendar_view"
-                    android:layout_width="400dp"
-                    android:layout_height="400dp"
-                    tools:context="com.coldani3.dangoniser.MainActivity"
-                    android:layout_marginHorizontal="5dp"
-                    android:background="@drawable/component_border"/>-->
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".MainActivity"/>
             </LinearLayout>
 
             <com.coldani3.dangoniser.components.TodoListView
@@ -49,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/general_notes"
+                android:layout_marginTop="@dimen/scroll_margin"
                 android:autoSizeTextType="uniform"
                 android:autoSizePresetSizes="@array/title_sizes"/>
 
