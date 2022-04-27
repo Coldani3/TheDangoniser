@@ -1,5 +1,6 @@
 package com.coldani3.dangoniser.components
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
@@ -60,6 +61,10 @@ class TodoListItemView : RelativeLayout {
         binding.checkboxText.text = name;
     }
 
+    private fun deleteSelf(view: View) {
+
+    }
+
     private fun callChecked(view: View) {
         if (onChecked != null) {
             onChecked!!(view, binding.checkbox.isChecked);
@@ -79,5 +84,14 @@ class TodoListItemView : RelativeLayout {
         if (onDelete != null) {
             onDelete!!(view);
         }
+
+        AlertDialog.Builder(context)
+            .setTitle("Delete To-do")
+            .setMessage("Are you sure you want to delete this to-do?")
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.ok) {
+                    dialogInterface, whichButton -> deleteSelf(view);
+            }.setNegativeButton(android.R.string.cancel, null)
+            .show();
     }
 }

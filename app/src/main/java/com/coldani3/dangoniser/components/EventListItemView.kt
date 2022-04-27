@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
+import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.databinding.EventListItemBinding
 import kotlinx.coroutines.launch
@@ -57,10 +58,16 @@ class EventListItemView : RelativeLayout {
 
     fun setEventData(data: EventData) {
         eventData = data;
+        //binding.eventTime.text = Util.calendarToStringDate(data.date);
+        binding.eventName.text = getName();
     }
 
     fun onDeletePressed(onPressed: (View, EventData?) -> Unit) {
         onDelete = onPressed;
+    }
+
+    protected fun getName() : String {
+        return eventData!!.eventName + " (" + Util.calendarToStringDate(eventData!!.date) + ") " + if (eventData!!.location.isNotEmpty()) "at " + eventData!!.location else ""
     }
 
     protected fun onClicked(view: View) {

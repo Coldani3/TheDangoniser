@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
 
     fun dateChanged(view: View, dateData: DateData) {
         val calendar: Calendar = Calendar.getInstance();
-        calendar.set(dateData.year, dateData.month, dateData.day);
+        calendar.set(dateData.year, dateData.month - 1, dateData.day);
 
         val data: Bundle = bundleOf(MainActivity.DATE_PASS_ID to calendar);
         view.findNavController().navigate(R.id.action_homeFragment_to_eventListFragment, data);

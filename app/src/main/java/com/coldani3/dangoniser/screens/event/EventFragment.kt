@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.Util
@@ -85,6 +86,8 @@ class EventFragment : Fragment() {
                 Log.d(MainActivity.DEBUG_LOG_NAME, "Could not find matching event in database for ID: " + eventData.uid);
                 MainActivity.database.get().eventsDao().insertEvent(EventData.toDBObject(eventData));
             }
+
+            findNavController().navigate(R.id.action_eventFragment_to_homeFragment);
         }
     }
 

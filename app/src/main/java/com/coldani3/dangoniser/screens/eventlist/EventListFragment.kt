@@ -61,13 +61,17 @@ class EventListFragment : Fragment() {
         lifecycleScope.launch {
             val events: List<DBCalendarEvent> =
                 MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded " + events.size + " events for time " + selectedDate.timeInMillis);
 
-            for (event in events) {
-                binding.events.addItem(EventData(event));
+            if (events.size > 0) {
+                for (event in events) {
+                    binding.events.addItem(EventData(event));
+                }
+            } else {
+                binding.events.addItem(EventData("Sample Event"), R.id.action_eventListFragment_to_eventFragment);
             }
         }
 
-        binding.events.addItem(EventData("Sample Event"), R.id.action_eventListFragment_to_eventFragment);
         addTodo(TodoData("Sample todo"));
 
         return binding.root;

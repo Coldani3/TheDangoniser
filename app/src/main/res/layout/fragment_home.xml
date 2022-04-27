@@ -9,12 +9,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="5dp">
 
             <!-- TODO: Update blank fragment layout -->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/itemTextHeight"
                 android:text="@string/upcoming_events"
                 android:autoSizeTextType="uniform"
                 android:autoSizePresetSizes="@array/title_sizes"/>
@@ -28,8 +29,8 @@
                 android:layout_width="400dp"
                 android:layout_height="400dp"
                 android:id="@+id/calendar_container"
-                android:layout_marginHorizontal="5dp"
                 android:background="@drawable/component_border"
+                android:layout_marginTop="@dimen/scroll_margin"
                 android:orientation="horizontal"> <!--android:layout_width="wrap_content"
                 android:layout_height="wrap_content"-->
                 <!-- We will add this manually because MCalendar breaks with Fragments on activity restart for some reason. -->
@@ -43,10 +44,11 @@
             <com.coldani3.dangoniser.components.TodoListView
                 android:id="@+id/todo_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scroll_margin"/>
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/itemTextHeight"
                 android:text="@string/general_notes"
                 android:layout_marginTop="@dimen/scroll_margin"
                 android:autoSizeTextType="uniform"
@@ -55,7 +57,8 @@
             <com.coldani3.dangoniser.components.NotesView
                 android:id="@+id/general_notes_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scroll_margin"/>
         </LinearLayout>
     </ScrollView>
 </layout>

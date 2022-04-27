@@ -8,6 +8,7 @@
         <item>20sp</item>
         <item>25sp</item>
     </array>
-    <dimen name="itemTextWidth">300dp</dimen>
+    <dimen name="itemTextWidth">200dp</dimen>
     <item name="itemTextHeight" type="dimen">30dp</item>
+    <item name="itemSmallTextHeight" type="dimen">15dp</item>
 </resources>

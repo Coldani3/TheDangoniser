@@ -22,7 +22,6 @@
             android:autoSizeMinTextSize="12sp"
             android:autoSizePresetSizes="@array/title_sizes"
             android:autoSizeTextType="uniform"
-            android:text="@string/test"
             android:layout_centerVertical="true"/>
     </LinearLayout>
     <Button
@@ -32,5 +31,7 @@
         android:layout_gravity="right"
         android:layout_alignParentRight="true"
         android:text="@string/delete"
-        android:layout_marginVertical="@dimen/scroll_margin"/>        <!--android:background="@drawable/component_rounded_border_transparent_background"-->
+        android:layout_marginVertical="@dimen/scroll_margin"
+        android:clickable="true"
+        android:focusable="true"/>        <!--android:background="@drawable/component_rounded_border_transparent_background"-->
 </merge>

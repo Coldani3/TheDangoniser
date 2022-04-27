@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
+import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.EventData
 
 class EventListView : AbstractListView<EventData, EventListItemView> {
