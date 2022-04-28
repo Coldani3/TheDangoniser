@@ -23,12 +23,13 @@
                     android:autoSizeTextType="uniform"
                     android:autoSizePresetSizes="@array/title_sizes"
                     android:layout_centerVertical="true"/>
-                <Button
+
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
                     android:layout_alignParentRight="true"
-                    android:text="@string/delete"/>
+                    android:layout_gravity="right"
+                    android:src="@android:drawable/ic_menu_delete"/>
             </RelativeLayout>
             <EditText
                 android:id="@+id/event_name"
@@ -107,12 +108,12 @@
                         android:spinnerMode="dropdown"/>
                 </LinearLayout>
             </LinearLayout>
-            <Button
+            <ImageButton
                 android:id="@+id/done_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/done"/>
+                android:src="@android:drawable/ic_menu_add"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemTextHeight"

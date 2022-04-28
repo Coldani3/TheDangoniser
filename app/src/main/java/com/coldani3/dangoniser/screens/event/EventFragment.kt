@@ -82,31 +82,22 @@ class EventFragment : Fragment() {
         binding.atInput.setTextIsSelectable(false);
         binding.atInput.setOnTouchListener() { view, event -> {
                 if (event.action == MotionEvent.ACTION_UP) {
-                    dateTimeSelect(binding.atInput, eventData.date);
+                    Util.dateTimeSelect(binding.atInput, eventData.date, requireActivity().supportFragmentManager);
                 }
                 view.performClick();
             }()
         }
-
-//        binding.atInput.afterTextChanged { it ->
-//            if (Util.stringIsDateTime(it)) {
-//                eventData.date = Util.stringDateToCalendar(it);
-//            }
-//        }
 
         binding.untilInput.setTextIsSelectable(false);
         binding.untilInput.setOnTouchListener { view, event -> {
                 if (event.action == MotionEvent.ACTION_UP) {
-                    dateTimeSelect(binding.untilInput, eventData.until);
+                    Util.dateTimeSelect(binding.untilInput, eventData.until, requireActivity().supportFragmentManager);
                 }
                 view.performClick();
             }()
         }
-//        binding.untilInput.afterTextChanged { it ->
-//            if (Util.stringIsDateTime(it)) {
-//                eventData.until = Util.stringDateToCalendar(it);
-//            }
-//        }
+
+        //binding.reminderDropdown.
 
         binding.whereInput.afterTextChanged { it ->
             eventData.location = it;
@@ -115,30 +106,7 @@ class EventFragment : Fragment() {
         return binding.root;
     }
 
-    fun dateTimeSelect(input: EditText, date: Calendar) {
-        var calendar: Calendar = Calendar.getInstance();
 
-        if (eventData.date != null) {
-            calendar = eventData.date;
-        }
-
-        val datePicker: DatePicker = DatePicker(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePicker.setOnDateSet { datePicker, year, month, day ->
-            val timePicker: TimePicker = TimePicker(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
-            timePicker.setOnTimeSet { timePicker, hourOfDay, minute ->
-                calendar.set(year, month, day);
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
-
-                date.set(year, month, day, hourOfDay, minute);
-
-                input.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(calendar));
-            }
-            timePicker.show(requireActivity().supportFragmentManager, "timePicker");
-        }
-
-        datePicker.show(requireActivity().supportFragmentManager, "datePicker");
-    }
 
     @SuppressWarnings("MissingPermission")
     fun getLongitudeLatitude(): MutableList<Double> {

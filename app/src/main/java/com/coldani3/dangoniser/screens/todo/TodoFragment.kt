@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -64,10 +65,12 @@ class TodoFragment : Fragment() {
             todoData.title = it;
         };
 
-        binding.todoDate.afterTextChanged { it ->
-            if (Util.stringIsDateTime(it)) {
-                todoData.forDate = Util.stringDateToCalendar(it);
-            }
+        binding.todoDate.setOnTouchListener { view, event -> {
+                if (event.action == MotionEvent.ACTION_UP) {
+                    Util.dateTimeSelect(binding.todoDate, todoData.forDate, requireActivity().supportFragmentManager);
+                }
+                view.performClick();
+            }()
         }
 
         return binding.root;
