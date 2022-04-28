@@ -1,5 +1,8 @@
 package com.coldani3.dangoniser.screens.event
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.location.*
 import android.media.metrics.Event
 import android.os.Bundle
 import android.text.Editable
@@ -10,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -21,6 +25,8 @@ import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentEventBinding
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
 import kotlinx.coroutines.launch
+import java.io.IOException
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -50,6 +56,7 @@ class EventFragment : Fragment() {
         binding.untilInput.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(eventData.until));
         binding.whereInput.text = Editable.Factory.getInstance().newEditable(eventData.location);
         binding.notes.setText(eventData.notes);
+        binding.hereButton.setOnClickListener { view ->  }
 
         binding.doneButton.setOnClickListener { view -> updateDB(); };
         binding.notes.onTextChanged { text ->
@@ -77,6 +84,39 @@ class EventFragment : Fragment() {
         }
 
         return binding.root;
+    }
+
+    @SuppressLint("MissingPermission")
+    fun getHereLocation(view: View): String {
+        //https://stackoverflow.com/a/6922448
+        val locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
+        val provider: String? = locationManager.getBestProvider(Criteria(), true);
+
+        if (provider != null) {
+            val locations: Location = locationManager.getLastKnownLocation(provider)!!;
+            val providerList: List<String> = locationManager.allProviders;
+
+            if (!providerList.isNullOrEmpty()) {
+                val longitude: Double = locations.longitude;
+                val latitude: Double = locations.latitude;
+                val geocoder: Geocoder = Geocoder(context, Locale.getDefault());
+
+                try {
+                    val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1);
+
+                    if (!addresses.isNullOrEmpty()) {
+                        return addresses[0].getAddressLine(0);
+                    }
+                } catch (e: IOException) {
+                    Log.e(MainActivity.DEBUG_LOG_NAME, Log.getStackTraceString(e));
+                    return "Could not get location name (" + latitude + ", " + longitude + ")";
+                }
+            }
+
+        }
+
+        return "Could not get location";
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

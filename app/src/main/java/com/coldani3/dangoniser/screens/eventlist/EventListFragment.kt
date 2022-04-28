@@ -74,7 +74,7 @@ class EventListFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 if (events.isNotEmpty()) {
                     for (event in events) {
-                        binding.events.addItem(EventData(event));
+                        binding.events.addItem(EventData(event), R.id.action_eventListFragment_to_eventFragment);
                     }
                 } else {
                     binding.events.addItem(
@@ -110,7 +110,7 @@ class EventListFragment : Fragment() {
     }
 
     fun editPressed(view: View) {
-        view.findNavController().navigate(R.id.action_eventListFragment_to_eventFragment);
+        //view.findNavController().navigate(R.id.action_eventListFragment_to_eventFragment);
         Log.d(MainActivity.DEBUG_LOG_NAME, "Edit pressed.");
     }
 
