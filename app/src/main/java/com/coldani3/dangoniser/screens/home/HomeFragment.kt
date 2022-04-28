@@ -1,5 +1,6 @@
 package com.coldani3.dangoniser.screens.home
 
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -40,6 +41,7 @@ import java.util.*
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding;
     private var calendarView: MCalendarView? = null;
+    private var preferences: SharedPreferences? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,19 +53,13 @@ class HomeFragment : Fragment() {
         binding.upcomingEvents.setAddNavpath(R.id.action_homeFragment_to_eventFragment);
         binding.todoList.setAddNavpath(R.id.action_homeFragment_to_todoFragment);
 
-        //val preferences: SharedPreferences = context.getSharedPreferences()
+        preferences = context?.getSharedPreferences(MainActivity.SHARED_PREFERENCES, MODE_PRIVATE);
 
-        /*if (calendarView != null) {
-            Log.d(MainActivity.DEBUG_LOG_NAME, "Refresh calendar!");
-            binding.calendarContainer.removeView(calendarView);
-            calendarView = null;
-        }*/
+        if (preferences != null) {
+            binding.generalNotesHome.setText(preferences!!.getString(generalNotes, "")!!);
+        }
 
         calendarView = binding.homeCalendarView;//MCalendarView(this.context);
-
-        /*binding.calendarContainer.addView(calendarView)
-        binding.calendarContainer.invalidate();
-        calendarView!!.invalidate();*/
 
         lifecycleScope.launch(Dispatchers.IO) {
             val allEvents: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();
@@ -139,6 +135,15 @@ class HomeFragment : Fragment() {
         return binding.root;
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        if (preferences != null) {
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Saved general notes");
+            preferences!!.edit().putString(generalNotes, binding.generalNotesHome.getText().trim()).apply();
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
         /*binding.homeCalendarView.*/calendarView!!.setMarkedStyle(MarkStyle.BACKGROUND);
@@ -174,5 +179,9 @@ class HomeFragment : Fragment() {
         for (date: Calendar in MainActivity.eventsManager.getAllDatesInMap()) {
             calendar.markDate(Util.calendarToDateData(date));
         }
+    }
+
+    companion object {
+        const val generalNotes: String = "generalNotes";
     }
 }

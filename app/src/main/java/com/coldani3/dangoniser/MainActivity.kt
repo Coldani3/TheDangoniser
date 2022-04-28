@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         const val DATE_PASS_ID: String = "date";
         const val EVENT_DATA_PASS_ID: String = "eventData";
         const val TODO_DATA_PASS_ID: String = "todoData";
+        const val SHARED_PREFERENCES: String = "dangoniser_preferences";
         var database: DatabaseSingleton<DangoniserDatabase> = DatabaseSingleton<DangoniserDatabase>();
         const val DEBUG_LOG_NAME: String = "Dangoniser";
     }

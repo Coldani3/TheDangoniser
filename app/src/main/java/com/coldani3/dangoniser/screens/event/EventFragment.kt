@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.coldani3.dangoniser.MainActivity
@@ -24,6 +25,8 @@ import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentEventBinding
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
+import com.coldani3.dangoniser.screens.pickers.DatePicker
+import com.coldani3.dangoniser.screens.pickers.TimePicker
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
@@ -75,12 +78,19 @@ class EventFragment : Fragment() {
             eventData.eventName = it;
         }
 
-        binding.atInput.afterTextChanged { it ->
-            if (Util.stringIsDateTime(it)) {
-                eventData.date = Util.stringDateToCalendar(it);
-            }
+        binding.atInput.setOnClickListener { view ->
+            dateTimeSelect(binding.atInput);
         }
 
+//        binding.atInput.afterTextChanged { it ->
+//            if (Util.stringIsDateTime(it)) {
+//                eventData.date = Util.stringDateToCalendar(it);
+//            }
+//        }
+
+        binding.untilInput.setOnClickListener { view ->
+            dateTimeSelect(binding.untilInput);
+        }
         binding.untilInput.afterTextChanged { it ->
             if (Util.stringIsDateTime(it)) {
                 eventData.until = Util.stringDateToCalendar(it);
@@ -92,6 +102,31 @@ class EventFragment : Fragment() {
         }
 
         return binding.root;
+    }
+
+    fun dateTimeSelect(input: EditText) {
+        var calendar: Calendar = Calendar.getInstance();
+
+        if (eventData.date != null) {
+            calendar = eventData.date;
+        }
+
+        val datePicker: DatePicker = DatePicker(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePicker.setOnDateSet { datePicker, year, month, day ->
+            val timePicker: TimePicker = TimePicker(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+            timePicker.setOnTimeSet { timePicker, hourOfDay, minute ->
+                calendar.set(year, month, day);
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+
+                eventData.date = calendar;
+
+                input.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(calendar));
+            }
+            timePicker.show(requireActivity().supportFragmentManager, "timePicker");
+        }
+
+        datePicker.show(requireActivity().supportFragmentManager, "datePicker");
     }
 
     @SuppressWarnings("MissingPermission")
@@ -122,8 +157,8 @@ class EventFragment : Fragment() {
         val longitudeLatitude: MutableList<Double> = getLongitudeLatitude();
 
         if (longitudeLatitude[0] != 0.0 && longitudeLatitude[1] != 0.0) {
-            val longitude = longitudeLatitude[0];
-            val latitude = longitudeLatitude[1];
+            val longitude: Double = longitudeLatitude[0];
+            val latitude: Double = longitudeLatitude[1];
             val geocoder: Geocoder = Geocoder(context, Locale.getDefault());
 
             try {
