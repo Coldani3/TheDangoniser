@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -78,8 +79,13 @@ class EventFragment : Fragment() {
             eventData.eventName = it;
         }
 
-        binding.atInput.setOnClickListener { view ->
-            dateTimeSelect(binding.atInput);
+        binding.atInput.setTextIsSelectable(false);
+        binding.atInput.setOnTouchListener() { view, event -> {
+                if (event.action == MotionEvent.ACTION_UP) {
+                    dateTimeSelect(binding.atInput, eventData.date);
+                }
+                view.performClick();
+            }()
         }
 
 //        binding.atInput.afterTextChanged { it ->
@@ -88,14 +94,19 @@ class EventFragment : Fragment() {
 //            }
 //        }
 
-        binding.untilInput.setOnClickListener { view ->
-            dateTimeSelect(binding.untilInput);
+        binding.untilInput.setTextIsSelectable(false);
+        binding.untilInput.setOnTouchListener { view, event -> {
+                if (event.action == MotionEvent.ACTION_UP) {
+                    dateTimeSelect(binding.untilInput, eventData.until);
+                }
+                view.performClick();
+            }()
         }
-        binding.untilInput.afterTextChanged { it ->
-            if (Util.stringIsDateTime(it)) {
-                eventData.until = Util.stringDateToCalendar(it);
-            }
-        }
+//        binding.untilInput.afterTextChanged { it ->
+//            if (Util.stringIsDateTime(it)) {
+//                eventData.until = Util.stringDateToCalendar(it);
+//            }
+//        }
 
         binding.whereInput.afterTextChanged { it ->
             eventData.location = it;
@@ -104,7 +115,7 @@ class EventFragment : Fragment() {
         return binding.root;
     }
 
-    fun dateTimeSelect(input: EditText) {
+    fun dateTimeSelect(input: EditText, date: Calendar) {
         var calendar: Calendar = Calendar.getInstance();
 
         if (eventData.date != null) {
@@ -119,7 +130,7 @@ class EventFragment : Fragment() {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
 
-                eventData.date = calendar;
+                date.set(year, month, day, hourOfDay, minute);
 
                 input.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(calendar));
             }
