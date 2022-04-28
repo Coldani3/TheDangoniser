@@ -16,7 +16,10 @@ import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBTodoListItem
 import com.coldani3.dangoniser.databinding.FragmentTodoBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * A simple [Fragment] subclass.
@@ -50,10 +53,10 @@ class TodoFragment : Fragment() {
             todoData = TodoData("Write title here");
         }
 
+        binding.doneButton.setOnClickListener { view -> updateDB(); };
+
         binding.todoText.text = Editable.Factory.getInstance().newEditable(todoData.title);
         binding.todoDate.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(todoData.forDate));
-
-        binding.doneButton.setOnClickListener { view -> updateDB(); };
 
         return binding.root;
     }
@@ -63,18 +66,20 @@ class TodoFragment : Fragment() {
         outState.putSerializable(TODO_ID, todoData);
     }
 
-    private fun updateDB() {
-        lifecycleScope.launch {
+    fun updateDB() {
+        lifecycleScope.launch(Dispatchers.IO) {
             val prevTodo: DBTodoListItem = MainActivity.database.get().todoListDao().getTodoByUID(todoData.uid);
 
             if (prevTodo != null) {
                 todoData.updateDB();
             } else {
-                Log.d(MainActivity.DEBUG_LOG_NAME, "Could not find matching event in database for ID: " + todoData.uid);
+                Log.d(MainActivity.DEBUG_LOG_NAME, "Could not find matching to-do in database for ID: " + todoData.uid);
                 MainActivity.database.get().todoListDao().insertTodo(TodoData.toDBObject(todoData));
             }
 
-            findNavController().navigate(R.id.action_todoFragment_to_homeFragment);
+            withContext(Dispatchers.Main) {
+                findNavController().navigate(R.id.action_todoFragment_to_homeFragment);
+            }
         }
     }
 

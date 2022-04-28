@@ -7,22 +7,24 @@
         tools:context="com.coldani3.dangoniser.screens.todo.TodoFragment"
         android:background="@drawable/component_border"
         android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/scroll_margin">
+        android:layout_marginHorizontal="@dimen/scroll_margin"
+        android:layout_marginVertical="@dimen/scroll_margin">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/todo_text"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/itemSmallTextHeight"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/to_do_date"/>
+                android:text="@string/to_do_date"
+                android:layout_centerVertical="true"/>
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/todo_date"/>
         </LinearLayout>
 

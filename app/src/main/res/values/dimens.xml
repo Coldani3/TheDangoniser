@@ -8,7 +8,9 @@
         <item>20sp</item>
         <item>25sp</item>
     </array>
-    <dimen name="itemTextWidth">200dp</dimen>
+    <dimen name="itemTextWidth">300dp</dimen>
+    <dimen name="calendar_width">400dp</dimen>
+    <dimen name="calendar_height">400dp</dimen>
     <item name="itemTextHeight" type="dimen">30dp</item>
     <item name="itemSmallTextHeight" type="dimen">15dp</item>
 </resources>

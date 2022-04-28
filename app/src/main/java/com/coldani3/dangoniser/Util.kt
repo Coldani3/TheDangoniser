@@ -2,7 +2,9 @@ package com.coldani3.dangoniser
 
 import androidx.room.RoomDatabase
 import sun.bob.mcalendarview.vo.DateData
+import java.lang.NullPointerException
 import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,6 +31,16 @@ class Util {
             val calendar: Calendar = Calendar.getInstance();
             calendar.time = dateFormat.parse(date);
             return calendar;
+        }
+
+        fun stringIsDateTime(date: String): Boolean {
+            //TODO: ew
+            try {
+                stringDateToCalendar(date);
+                return true;
+            } catch (e: ParseException) {
+                return false;
+            }
         }
     }
 }

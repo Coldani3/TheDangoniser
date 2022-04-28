@@ -16,7 +16,9 @@ import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 private const val ARG_PARAM1 = "param1"
@@ -56,19 +58,24 @@ class EventListFragment : Fragment() {
         var month: Int = selectedDate.get(Calendar.MONTH);
         var day: Int = selectedDate.get(Calendar.DAY_OF_MONTH);
 
-        binding.eventsForDay.text = "Events for day $year/$month/$day";
+        binding.eventsForDay.text = getString(R.string.events_for_day, year.toString(), month.toString(), day.toString());//"Events for day $year/$month/$day";
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             val events: List<DBCalendarEvent> =
                 MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
             Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded " + events.size + " events for time " + selectedDate.timeInMillis);
 
-            if (events.size > 0) {
-                for (event in events) {
-                    binding.events.addItem(EventData(event));
+            withContext(Dispatchers.Main) {
+                if (events.size > 0) {
+                    for (event in events) {
+                        binding.events.addItem(EventData(event));
+                    }
+                } else {
+                    binding.events.addItem(
+                        EventData("Sample Event"),
+                        R.id.action_eventListFragment_to_eventFragment
+                    );
                 }
-            } else {
-                binding.events.addItem(EventData("Sample Event"), R.id.action_eventListFragment_to_eventFragment);
             }
         }
 

@@ -17,19 +17,20 @@ class TodoListView : AbstractListView<TodoData, TodoListItemView> {
         addItem(event, null, null, null);
     }
 
-    public fun addItem(event: TodoData, checkPressed: ((View, Boolean) -> Unit)?, editPressPressed: ((View) -> Unit)?, deleteButtonPressed: ((View) -> Unit)?) {
+    public fun addItem(todoData: TodoData, checkPressed: ((View, Boolean) -> Unit)?, editPressPressed: ((View) -> Unit)?, deleteButtonPressed: ((View) -> Unit)?) {
         val item: TodoListItemView = TodoListItemView(context);
         Log.d(MainActivity.DEBUG_LOG_NAME, "Todo addItem");
 
         item.layoutParams = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        item.setChecked(event.checked);
-        item.setName(event.title);
+        item.setTodo(todoData);
+        item.setChecked(todoData.checked);
+        item.setName(todoData.title);
         item.onChecked(checkPressed);
         item.onEditPress(editPressPressed);
         item.onDeletePress(deleteButtonPressed);
 
         binding.eventsList.addView(item);
         item.invalidate();
-        items.add(event);
+        items.add(todoData);
     }
 }

@@ -5,14 +5,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.coldani3.dangoniser.screens.eventlist.EventListFragment"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/scroll_margin">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
             android:id="@+id/events_for_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Loading..."
+            android:text="@string/loading"
             android:autoSizeTextType="uniform"
             android:autoSizePresetSizes="@array/title_sizes"/>
 
@@ -23,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="To-do List for this day"/>
+            android:text="@string/to_do_list_for_this_day"/>
         <com.coldani3.dangoniser.components.TodoListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

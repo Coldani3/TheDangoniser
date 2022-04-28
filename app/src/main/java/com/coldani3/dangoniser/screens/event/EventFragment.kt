@@ -57,11 +57,15 @@ class EventFragment : Fragment() {
         }
 
         binding.atInput.afterTextChanged { it ->
-            eventData.date = Util.stringDateToCalendar(it);
+            if (Util.stringIsDateTime(it)) {
+                eventData.date = Util.stringDateToCalendar(it);
+            }
         }
 
         binding.untilInput.afterTextChanged { it ->
-            eventData.until = Util.stringDateToCalendar(it);
+            if (Util.stringIsDateTime(it)) {
+                eventData.until = Util.stringDateToCalendar(it);
+            }
         }
 
         binding.whereInput.afterTextChanged { it ->

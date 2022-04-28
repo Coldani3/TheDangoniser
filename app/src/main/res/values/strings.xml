@@ -11,4 +11,14 @@
     <string name="test">Test</string>
     <string name="deletedEvent">Event deleted</string>
     <string name="to_do_date">To-do Date:</string>
+    <string name="at">At:</string>
+    <string name="until">Until:</string>
+    <string name="where">Where:</string>
+    <string name="here">Here</string>
+    <string name="remind_me">Remind me:</string>
+    <string name="calendar_event">Calendar Event:</string>
+    <string name="to_do_list_for_this_day">To-do List for this day</string>
+    <string name="loading">Loading...</string>
+    <string name="plus">+</string>
+    <string name="events_for_day">Events for day %1$s/%2$s/%3$s</string>
 </resources>

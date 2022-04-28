@@ -20,9 +20,9 @@ class EventListView : AbstractListView<EventData, EventListItemView> {
         val item: EventListItemView = EventListItemView(context);
 
         item.layoutParams = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        item.setEventName(event.eventName);
-        item.setEventNavpath(navPath);
         item.setEventData(event);
+        //item.setEventName(event.eventName);
+        item.setEventNavpath(navPath);
 
         item.id = View.generateViewId();
 

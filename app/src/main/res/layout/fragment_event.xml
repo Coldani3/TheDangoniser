@@ -19,13 +19,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_gravity="left"
-                    android:text="Calendar Event:" />
+                    android:text="@string/calendar_event" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_alignParentRight="true"
-                    android:text="Delete"/>
+                    android:text="@string/delete"/>
             </RelativeLayout>
             <EditText
                 android:id="@+id/event_name"
@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="At:"/>
+                        android:text="@string/at"/>
                     <EditText
                         android:id="@+id/at_input"
                         android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Until:"/>
+                        android:text="@string/until"/>
                     <EditText
                         android:id="@+id/until_input"
                         android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Where:"/>
+                        android:text="@string/where"/>
                     <EditText
                         android:id="@+id/where_input"
                         android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                         android:id="@+id/here_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Here"/>
+                        android:text="@string/here"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Remind me:"/>
+                        android:text="@string/remind_me"/>
                     <Spinner
                         android:id="@+id/reminder_dropdown"
                         android:layout_width="match_parent"

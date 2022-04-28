@@ -18,8 +18,11 @@ import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
+import com.coldani3.dangoniser.data.bases.DBTodoListItem
 import com.coldani3.dangoniser.databinding.FragmentHomeBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import sun.bob.mcalendarview.MCalendarView
 import sun.bob.mcalendarview.MarkStyle
 import sun.bob.mcalendarview.listeners.OnDateClickListener
@@ -46,9 +49,8 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,
             R.layout.fragment_home,container,false);
 
-        binding.todoList.addItem(TodoData("Sample todo"));
-
         binding.upcomingEvents.setAddNavpath(R.id.action_homeFragment_to_eventFragment);
+        binding.todoList.setAddNavpath(R.id.action_homeFragment_to_todoFragment);
 
         /*if (calendarView != null) {
             Log.d(MainActivity.DEBUG_LOG_NAME, "Refresh calendar!");
@@ -76,24 +78,48 @@ class HomeFragment : Fragment() {
             }
         } );
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             val data: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();
             Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + data.size + " events!");
+            val todos: List<DBTodoListItem> =
+                MainActivity.database.get().todoListDao().getAllTodos();
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + todos.size + " events!");
 
-            if (data.size > 0) {
-                for (event in data) {
-                    val eventData: EventData = EventData(event);
-                    binding.upcomingEvents.addItem(eventData, R.id.action_homeFragment_to_eventFragment);
-                    MainActivity.eventsManager.add(eventData.date, eventData);
-                    Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded event with name: " + event.eventName + " (uid :" + event.uid + ")");
+            withContext(Dispatchers.Main) {
+                if (data.size > 0) {
+                    for (event in data) {
+                        val eventData: EventData = EventData(event);
+                        binding.upcomingEvents.addItem(
+                            eventData,
+                            R.id.action_homeFragment_to_eventFragment
+                        );
+                        MainActivity.eventsManager.add(eventData.date, eventData);
+                        Log.d(
+                            MainActivity.DEBUG_LOG_NAME,
+                            "Loaded event with name: " + event.eventName + " (uid :" + event.uid + ")"
+                        );
+                    }
+                } else {
+                    binding.upcomingEvents.addItem(
+                        EventData("Test"),
+                        R.id.action_homeFragment_to_eventFragment
+                    );
                 }
-            } else {
-                binding.upcomingEvents.addItem(EventData("Test"), R.id.action_homeFragment_to_eventFragment);
+
+                highlightDatesWithEvents(/*binding.homeCalendarView*/calendarView!!);
+
+                if (todos.size > 0) {
+                    for (todo in todos) {
+                        val todoData: TodoData = TodoData(todo);
+                        binding.todoList.addItem(todoData);
+                        MainActivity.todoListManager.add(todoData.forDate, todoData);
+                    }
+                } else {
+                    binding.todoList.addItem(TodoData("Sample todo"));
+                }
+
+                binding.upcomingEvents.invalidate();
             }
-
-            highlightDatesWithEvents(/*binding.homeCalendarView*/calendarView!!);
-
-            binding.upcomingEvents.invalidate();
         }
         //make sure the calendar actually displays
         //binding.homeCalendarView.invalidate();
