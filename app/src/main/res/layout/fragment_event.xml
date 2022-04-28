@@ -15,11 +15,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/itemTextWidth"
+                    android:layout_height="@dimen/itemTextHeight"
                     android:layout_alignParentLeft="true"
                     android:layout_gravity="left"
-                    android:text="@string/calendar_event" />
+                    android:text="@string/calendar_event"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizePresetSizes="@array/title_sizes"
+                    android:layout_centerVertical="true"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,6 +113,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/done"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itemTextHeight"
+                android:text="@string/notes"
+                android:autoSizeTextType="uniform"
+                android:autoSizePresetSizes="@array/title_sizes"
+                android:layout_centerVertical="true"/>
+            <com.coldani3.dangoniser.components.NotesView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/notes"/>
         </LinearLayout>
     </ScrollView>
 </layout>

@@ -6,9 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.ScrollView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +13,6 @@ import androidx.navigation.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.Util
-import com.coldani3.dangoniser.components.EventListItemView
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
@@ -28,7 +24,6 @@ import kotlinx.coroutines.withContext
 import sun.bob.mcalendarview.MCalendarView
 import sun.bob.mcalendarview.MarkStyle
 import sun.bob.mcalendarview.listeners.OnDateClickListener
-import sun.bob.mcalendarview.listeners.OnMonthChangeListener
 import sun.bob.mcalendarview.vo.DateData
 import java.util.*
 
@@ -67,37 +62,47 @@ class HomeFragment : Fragment() {
         calendarView!!.invalidate();*/
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val data: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();
-            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + data.size + " events!");
+            val allEvents: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getAllEvents();
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + allEvents.size + " events!");
+
+            val startOfToday: Calendar = Util.startOfDay(Calendar.getInstance());
+            val fiveDaysFromNow: Calendar = startOfToday.clone() as Calendar;
+            fiveDaysFromNow.set(Calendar.DAY_OF_MONTH, (startOfToday.get(Calendar.DAY_OF_MONTH) + 5));
+
+            var fiveDaysData: MutableList<DBCalendarEvent> = mutableListOf();
+
+            Log.d(MainActivity.DEBUG_LOG_NAME, "" + Calendar.getInstance().timeInMillis + ", " + startOfToday.timeInMillis);
+            Log.d(MainActivity.DEBUG_LOG_NAME, "" + Util.calendarToStringDate(Calendar.getInstance()) + ", " + Util.calendarToStringDate(startOfToday));
+
+            for (event in allEvents) {
+                Log.d(MainActivity.DEBUG_LOG_NAME, event.eventName + ", " + event.date);
+                if (/*event.date < fiveDaysFromNow.timeInMillis && */event.date >= startOfToday.timeInMillis) {
+                    fiveDaysData.add(event);
+                }
+            }
+
+
+//            val data: List<DBCalendarEvent> = MainActivity.database.get().eventsDao().getEventsWithinXDaysOfNow(Util.startOfDay(
+//                Calendar.getInstance()).timeInMillis, 5);
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + fiveDaysData.size + " events within 5 days from today!");
             val todos: List<DBTodoListItem> =
                 MainActivity.database.get().todoListDao().getAllTodos();
-            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + todos.size + " events!");
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Found " + todos.size + " todos!");
 
             withContext(Dispatchers.Main) {
-                if (data.isNotEmpty()) {
-                    //DEBUG
-//                    val item: EventListItemView = EventListItemView(requireContext());
-//
-//                    item.layoutParams = RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                    item.setEventData(EventData(data.first()));
-//                    item.setEventNavpath(R.id.action_homeFragment_to_eventFragment);
-//
-//                    item.id = View.generateViewId();
-//
-//                    binding.debug.addView(item);
+                if (fiveDaysData.isNotEmpty()) {
+                    for (event in allEvents) {
+                        val eventData: EventData = EventData(event);
+                        MainActivity.eventsManager.add(eventData.date, eventData);
+                    }
 
-                    //DBEUG
-
-
-                    for (event in data) {
+                    for (event in fiveDaysData) {
                         val eventData: EventData = EventData(event);
                         binding.upcomingEvents.addItem(
                             eventData,
                             R.id.action_homeFragment_to_eventFragment
                         );
 
-
-                        MainActivity.eventsManager.add(eventData.date, eventData);
                         Log.d(
                             MainActivity.DEBUG_LOG_NAME,
                             "Loaded event with name: " + event.eventName + " (uid :" + event.uid + ")"
@@ -110,7 +115,7 @@ class HomeFragment : Fragment() {
                     );
                 }
 
-                highlightDatesWithEvents(/*binding.homeCalendarView*/calendarView!!);
+                highlightDatesWithEvents(calendarView!!);
 
                 if (todos.isNotEmpty()) {
                     for (todo in todos) {

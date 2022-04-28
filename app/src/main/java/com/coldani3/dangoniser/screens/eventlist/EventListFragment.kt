@@ -11,10 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
+import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.components.TodoListItemView
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
+import com.coldani3.dangoniser.data.bases.DBTodoListItem
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,12 +63,16 @@ class EventListFragment : Fragment() {
         binding.eventsForDay.text = getString(R.string.events_for_day, year.toString(), month.toString(), day.toString());//"Events for day $year/$month/$day";
 
         lifecycleScope.launch(Dispatchers.IO) {
+            val today: Calendar = Util.startOfDay(selectedDate);
+            val todayString: String = Util.calendarToStringDate(today)
             val events: List<DBCalendarEvent> =
-                MainActivity.database.get().eventsDao().getEventsForDay(selectedDate.timeInMillis);
-            Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded " + events.size + " events for time " + selectedDate.timeInMillis);
+                MainActivity.database.get().eventsDao().getEventsForDay(today.timeInMillis);
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded " + events.size + " events for time " + todayString);
+            val todos: List<DBTodoListItem> = MainActivity.database.get().todoListDao().getTodosForDay(today.timeInMillis);
+            Log.d(MainActivity.DEBUG_LOG_NAME, "Loaded " + todos.size + " to-dos for time " + todayString);
 
             withContext(Dispatchers.Main) {
-                if (events.size > 0) {
+                if (events.isNotEmpty()) {
                     for (event in events) {
                         binding.events.addItem(EventData(event));
                     }
@@ -76,10 +82,16 @@ class EventListFragment : Fragment() {
                         R.id.action_eventListFragment_to_eventFragment
                     );
                 }
+
+                if (todos.isNotEmpty()) {
+                    for (todo in todos) {
+                        addTodo(TodoData(todo));
+                    }
+                } else {
+                    addTodo(TodoData("Sample todo"));
+                }
             }
         }
-
-        addTodo(TodoData("Sample todo"));
 
         return binding.root;
     }

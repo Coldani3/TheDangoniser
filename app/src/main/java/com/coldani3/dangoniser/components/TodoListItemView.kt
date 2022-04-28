@@ -98,11 +98,9 @@ class TodoListItemView : RelativeLayout {
                 MainActivity.database.get().todoListDao()
                     .deleteTodo(TodoData.toDBObject(todoData!!));
             }
-
-            withContext(Dispatchers.Main) {
-                (parent as ViewGroup).removeView(view);
-            }
         }
+
+        (parent as ViewGroup).removeView(this);
     }
 
     private fun callChecked(view: View) {
@@ -143,8 +141,8 @@ class TodoListItemView : RelativeLayout {
         }
 
         AlertDialog.Builder(context)
-            .setTitle("Delete To-do")
-            .setMessage("Are you sure you want to delete this to-do?")
+            .setTitle(context.getString(R.string.delete_todo_popup_title, todoData!!.title))
+            .setMessage(R.string.delete_todo_question)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok) {
                     dialogInterface, whichButton -> deleteSelf(view);

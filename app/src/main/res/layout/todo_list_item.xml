@@ -19,7 +19,7 @@
         android:layout_centerVertical="true">
         <TextView
             android:id="@+id/checkbox_text"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/itemSmallTextWidth"
             android:layout_height="match_parent"
             android:autoSizeTextType="uniform"
             android:autoSizePresetSizes="@array/title_sizes"

@@ -49,8 +49,12 @@ class EventFragment : Fragment() {
         binding.atInput.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(eventData.date));
         binding.untilInput.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(eventData.until));
         binding.whereInput.text = Editable.Factory.getInstance().newEditable(eventData.location);
+        binding.notes.setText(eventData.notes);
 
         binding.doneButton.setOnClickListener { view -> updateDB(); };
+        binding.notes.onTextChanged { text ->
+            eventData.notes = text;
+        }
 
         binding.eventName.afterTextChanged { it ->
             eventData.eventName = it;

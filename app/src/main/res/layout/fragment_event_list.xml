@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/events_for_day"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/itemTextHeight"
             android:text="@string/loading"
             android:autoSizeTextType="uniform"
             android:autoSizePresetSizes="@array/title_sizes"/>
@@ -22,9 +22,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/events"/>
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/to_do_list_for_this_day"/>
+            android:layout_width="@dimen/itemTextWidth"
+            android:layout_height="@dimen/itemTextHeight"
+            android:text="@string/to_do_list_for_this_day"
+            android:autoSizeTextType="uniform"
+            android:autoSizePresetSizes="@array/title_sizes"/>
         <com.coldani3.dangoniser.components.TodoListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -42,5 +42,15 @@ class Util {
                 return false;
             }
         }
+
+        fun startOfDay(day: Calendar): Calendar {
+            val startOfDay: Calendar = Calendar.getInstance();
+            startOfDay.set(Calendar.HOUR_OF_DAY, 0);
+            startOfDay.set(Calendar.MINUTE, 0);
+            startOfDay.set(Calendar.SECOND, 0);
+            startOfDay.set(Calendar.MILLISECOND, 0);
+            startOfDay.set(day.get(Calendar.YEAR), day.get(Calendar.MONTH), day.get(Calendar.DAY_OF_MONTH));
+            return startOfDay;
+        }
     }
 }
