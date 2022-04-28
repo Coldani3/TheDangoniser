@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.coldani3.dangoniser.screens.todo.TodoFragment"
+        android:background="@drawable/component_border"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/scroll_margin">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/todo_text"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemSmallTextHeight"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/to_do_date"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/todo_date"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

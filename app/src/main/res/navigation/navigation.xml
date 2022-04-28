@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_eventFragment"
             app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventListFragment"
@@ -25,6 +28,9 @@
         <action
             android:id="@+id/action_eventListFragment_to_eventFragment"
             app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_eventListFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
@@ -36,6 +42,18 @@
             app:destination="@id/eventListFragment" />
         <action
             android:id="@+id/action_eventFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="com.coldani3.dangoniser.screens.todo.TodoFragment"
+        android:label="TodoFragment"
+        android:layout="@layout/fragment_todo">
+        <action
+            android:id="@+id/action_todoFragment_to_eventListFragment"
+            app:destination="@id/eventListFragment" />
+        <action
+            android:id="@+id/action_todoFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
