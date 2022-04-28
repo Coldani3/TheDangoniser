@@ -13,11 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.Util
-import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.TodoData
-import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.data.bases.DBTodoListItem
-import com.coldani3.dangoniser.databinding.FragmentHomeBinding
 import com.coldani3.dangoniser.databinding.FragmentTodoBinding
 import kotlinx.coroutines.launch
 
@@ -68,16 +65,16 @@ class TodoFragment : Fragment() {
 
     private fun updateDB() {
         lifecycleScope.launch {
-            val prevEvent: DBTodoListItem = MainActivity.database.get().todoListDao().getTodoByUID(todoData.uid);
+            val prevTodo: DBTodoListItem = MainActivity.database.get().todoListDao().getTodoByUID(todoData.uid);
 
-            if (prevEvent != null) {
+            if (prevTodo != null) {
                 todoData.updateDB();
             } else {
                 Log.d(MainActivity.DEBUG_LOG_NAME, "Could not find matching event in database for ID: " + todoData.uid);
-                MainActivity.database.get().eventsDao().insertEvent(TodoData.toDBObject(todoData));
+                MainActivity.database.get().todoListDao().insertTodo(TodoData.toDBObject(todoData));
             }
 
-            findNavController().navigate(R.id.action_eventFragment_to_homeFragment);
+            findNavController().navigate(R.id.action_todoFragment_to_homeFragment);
         }
     }
 

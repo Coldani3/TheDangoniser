@@ -7,10 +7,10 @@ interface TodoListDAO {
     //todolist
     @Query("SELECT * FROM dbtodolistitem;")
     fun getAllTodos(): List<DBTodoListItem>;
-    @Query("SELECT * FROM dbtodolistitem WHERE forDate = :dateMillis")
+    @Query("SELECT * FROM dbtodolistitem WHERE forDate BETWEEN :dateMillis AND :dateMillis + 86400000")
     fun getTodosForDay(dateMillis: Long): List<DBTodoListItem>;
     @Query("SELECT * FROM dbtodolistitem WHERE uid = :uid")
-    fun getTodoByUID(uid: Long): DBTodoListItem;
+    fun getTodoByUID(uid: Int): DBTodoListItem;
 
     @Update
     fun updateTodo(todo: DBTodoListItem);

@@ -6,6 +6,8 @@ import androidx.room.*
 interface EventsDAO {
     @Query("SELECT * FROM dbcalendarevent")
     suspend fun getAllEvents(): List<DBCalendarEvent>;
+    @Query("SELECT * FROM dbcalendarevent WHERE date BETWEEN :now AND :now + (:x * 86400000)")
+    suspend fun getEventsWithinXDaysOfNow(now: Long, x: Int): List<DBCalendarEvent>;
     @Query("SELECT * FROM dbcalendarevent WHERE date BETWEEN :dateMillis AND :dateMillis + 86400000")
     suspend fun getEventsForDay(dateMillis: Long): List<DBCalendarEvent>;
     @Query("SELECT * FROM dbcalendarevent WHERE uid = :uid")

@@ -1,5 +1,6 @@
 package com.coldani3.dangoniser.data
 
+import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.Util
 import com.coldani3.dangoniser.data.bases.DBTodoListItem
 import java.io.Serializable
@@ -32,9 +33,20 @@ class TodoData : Serializable{
         setCheckedTo(!this.checked);
     }
 
+    public fun updateDB() {
+        MainActivity.database.get().todoListDao().updateTodo(toDBObject(this));
+    }
+
     companion object {
         fun fromDBObject(item: DBTodoListItem): TodoData {
             return TodoData(item.name, item.checked, Util.millisToCalendar(item.forDate));
+        }
+
+        fun toDBObject(data: TodoData): DBTodoListItem {
+            val item: DBTodoListItem = DBTodoListItem(data.title,data.checked, data.forDate.timeInMillis);
+            item.uid = data.uid;
+
+            return item;
         }
     }
 }
