@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:focusable="true"/>
     <LinearLayout
         android:layout_width="@dimen/itemTextWidth"
         android:layout_height="@dimen/itemTextHeight"
@@ -30,11 +31,14 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="3dp"
         android:text="@string/edit"
-        android:layout_toLeftOf="@id/delete_button" />
+        android:layout_toLeftOf="@id/delete_button"
+        android:clickable="true"
+        android:focusable="true"/>
     <Button
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:focusable="true"/>
 </merge>

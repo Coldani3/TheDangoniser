@@ -36,9 +36,12 @@ class TodoListItemView : RelativeLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         inflate(context, R.layout.todo_list_item, this);
         binding = TodoListItemBinding.inflate(LayoutInflater.from(context), this);//.parent as ViewGroup);
-        binding.checkbox.setOnClickListener { view -> callChecked(view) };
+        binding.checkbox.setOnClickListener { view -> callChecked(view); Log.d(MainActivity.DEBUG_LOG_NAME, "check") };
+        binding.checkbox.bringToFront();
         binding.deleteButton.setOnClickListener { view -> callDelete(view) };
+        binding.deleteButton.bringToFront();
         binding.editButton.setOnClickListener { view -> callEdit(view) };
+        binding.editButton.bringToFront();
 
         //this.setOnClickListener {view -> onClick(view)};
 
@@ -82,6 +85,7 @@ class TodoListItemView : RelativeLayout {
 
     public fun setChecked(checked: Boolean) {
         binding.checkbox.isChecked = checked;
+        binding.checkbox.invalidate();
     }
 
     public fun setName(name: String) {
@@ -110,6 +114,7 @@ class TodoListItemView : RelativeLayout {
             todoData!!.checked = binding.checkbox.isChecked;
 
             findViewTreeLifecycleOwner()?.lifecycleScope?.launch(Dispatchers.IO) {
+                Log.d(MainActivity.DEBUG_LOG_NAME, "update data on checked");
                 todoData!!.updateDB();
             }
         }
@@ -117,10 +122,7 @@ class TodoListItemView : RelativeLayout {
 
     private fun callEdit(view: View) {
         if (onEdit != null) {
-            Log.d(MainActivity.DEBUG_LOG_NAME, "edit");
             onEdit!!(view);
-        } else {
-            Log.d(MainActivity.DEBUG_LOG_NAME, "edit null");
         }
 
         if (navpath > -1) {
@@ -130,6 +132,8 @@ class TodoListItemView : RelativeLayout {
             } else {
                 findNavController().navigate(navpath);
             }
+        } else {
+            Log.d(MainActivity.DEBUG_LOG_NAME, "navpath null");
         }
     }
 

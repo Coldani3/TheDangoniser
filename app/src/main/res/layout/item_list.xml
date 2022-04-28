@@ -9,23 +9,31 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/component_border">
+        android:background="@drawable/component_border"
+        android:focusable="false"
+        android:clickable="false">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:maxHeight="200dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="false"
+            android:clickable="false">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="300dp"
                 android:orientation="vertical"
-                android:maxHeight="200dp">
+                android:maxHeight="200dp"
+                android:focusable="false"
+                android:clickable="false">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/events_list"
                     android:orientation="vertical"
-                    android:maxHeight="200dp">
+                    android:maxHeight="200dp"
+                    android:focusable="false"
+                    android:clickable="false">
                     <!-- Where CalendarEvents are put -->
                 </LinearLayout>
             </LinearLayout>

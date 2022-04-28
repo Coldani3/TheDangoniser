@@ -38,7 +38,11 @@ class EventListItemView : RelativeLayout {
         inflate(context, R.layout.event_list_item, this);
         binding = EventListItemBinding.inflate(LayoutInflater.from(context), this);
 
+        Log.d(MainActivity.DEBUG_LOG_NAME, "ADDING LISTENERS");
         binding.deleteButton/*findViewById<Button>(R.id.delete_button)*/.setOnClickListener { view -> onDeleteButtonPressed(view); Log.d(MainActivity.DEBUG_LOG_NAME, "delete") };
+        binding.deleteButton.isClickable = true;
+        //why do i need to do this even
+        binding.deleteButton.bringToFront();
         binding.itemBody.setOnClickListener { view -> onClicked(view) };
 
         val attributes: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.EventListItemView, 0, 0);

@@ -2,11 +2,13 @@ package com.coldani3.dangoniser.screens.todo
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -58,6 +60,16 @@ class TodoFragment : Fragment() {
         binding.todoText.text = Editable.Factory.getInstance().newEditable(todoData.title);
         binding.todoDate.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(todoData.forDate));
 
+        binding.todoText.afterTextChanged { it ->
+            todoData.title = it;
+        };
+
+        binding.todoDate.afterTextChanged { it ->
+            if (Util.stringIsDateTime(it)) {
+                todoData.forDate = Util.stringDateToCalendar(it);
+            }
+        }
+
         return binding.root;
     }
 
@@ -81,6 +93,21 @@ class TodoFragment : Fragment() {
                 findNavController().navigate(R.id.action_todoFragment_to_homeFragment);
             }
         }
+    }
+
+    //https://stackoverflow.com/a/40569759
+    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                afterTextChanged.invoke(editable.toString())
+            }
+        })
     }
 
     companion object {

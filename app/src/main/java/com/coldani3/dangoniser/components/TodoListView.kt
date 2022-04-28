@@ -13,11 +13,15 @@ class TodoListView : AbstractListView<TodoData, TodoListItemView> {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    public override fun addItem(event: TodoData) {
-        addItem(event, null, null, null);
+    public override fun addItem(todoData: TodoData) {
+        addItem(todoData, -1);
     }
 
-    public fun addItem(todoData: TodoData, checkPressed: ((View, Boolean) -> Unit)?, editPressPressed: ((View) -> Unit)?, deleteButtonPressed: ((View) -> Unit)?) {
+    public fun addItem(todoData: TodoData, navpath: Int) {
+        addItem(todoData, navpath, null, null, null);
+    }
+
+    public fun addItem(todoData: TodoData, navpath: Int, checkPressed: ((View, Boolean) -> Unit)?, editPressPressed: ((View) -> Unit)?, deleteButtonPressed: ((View) -> Unit)?) {
         val item: TodoListItemView = TodoListItemView(context);
         Log.d(MainActivity.DEBUG_LOG_NAME, "Todo addItem");
 
@@ -28,6 +32,9 @@ class TodoListView : AbstractListView<TodoData, TodoListItemView> {
         item.onChecked(checkPressed);
         item.onEditPress(editPressPressed);
         item.onDeletePress(deleteButtonPressed);
+        item.setNavpath(navpath);
+
+        item.id = View.generateViewId();
 
         binding.eventsList.addView(item);
         item.invalidate();

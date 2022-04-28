@@ -90,7 +90,7 @@ class EventListFragment : Fragment() {
     }
 
     fun addTodo(todo: TodoData) {
-        binding.todoList.addItem(todo, ::onChecked, ::editPressed, ::deletePressed);
+        binding.todoList.addItem(todo, R.id.action_eventListFragment_to_todoFragment, ::onChecked, ::editPressed, ::deletePressed);
     }
 
     fun onChecked(view: View, checked: Boolean) {
