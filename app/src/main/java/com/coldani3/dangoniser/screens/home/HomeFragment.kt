@@ -1,7 +1,9 @@
 package com.coldani3.dangoniser.screens.home
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +50,8 @@ class HomeFragment : Fragment() {
 
         binding.upcomingEvents.setAddNavpath(R.id.action_homeFragment_to_eventFragment);
         binding.todoList.setAddNavpath(R.id.action_homeFragment_to_todoFragment);
+
+        //val preferences: SharedPreferences = context.getSharedPreferences()
 
         /*if (calendarView != null) {
             Log.d(MainActivity.DEBUG_LOG_NAME, "Refresh calendar!");

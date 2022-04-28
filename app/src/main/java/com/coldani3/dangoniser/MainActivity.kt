@@ -1,8 +1,11 @@
 package com.coldani3.dangoniser
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.coldani3.dangoniser.data.EventData
@@ -18,6 +21,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            //mMap.
+        } else {
+            ActivityCompat.requestPermissions(this, Array<String>(1) {android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
         if (!database.initialised()) {
             database.init(applicationContext, DangoniserDatabase::class.java, "dangoniser-database");
         }
