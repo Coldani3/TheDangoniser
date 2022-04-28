@@ -1,16 +1,25 @@
 package com.coldani3.dangoniser.screens.todo
 
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.coldani3.dangoniser.Util
+import com.coldani3.dangoniser.data.EventData
+import com.coldani3.dangoniser.data.TodoData
+import com.coldani3.dangoniser.data.bases.DBCalendarEvent
+import com.coldani3.dangoniser.data.bases.DBTodoListItem
+import com.coldani3.dangoniser.databinding.FragmentHomeBinding
+import com.coldani3.dangoniser.databinding.FragmentTodoBinding
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -18,16 +27,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class TodoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding: FragmentTodoBinding;
+    private lateinit var todoData: TodoData;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -35,26 +41,47 @@ class TodoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_todo, container, false)
+        //return inflater.inflate(R.layout.fragment_todo, container, false)
+        binding = DataBindingUtil.inflate<FragmentTodoBinding>(inflater,
+            R.layout.fragment_todo,container,false);
+
+        if (savedInstanceState != null) {
+            todoData = savedInstanceState.getSerializable(TODO_ID) as TodoData;
+        } else if (arguments != null) {
+            todoData = arguments?.getSerializable(MainActivity.TODO_DATA_PASS_ID) as TodoData;
+        } else {
+            todoData = TodoData("Write title here");
+        }
+
+        binding.todoText.text = Editable.Factory.getInstance().newEditable(todoData.title);
+        binding.todoDate.text = Editable.Factory.getInstance().newEditable(Util.calendarToStringDate(todoData.forDate));
+
+        binding.doneButton.setOnClickListener { view -> updateDB(); };
+
+        return binding.root;
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(TODO_ID, todoData);
+    }
+
+    private fun updateDB() {
+        lifecycleScope.launch {
+            val prevEvent: DBTodoListItem = MainActivity.database.get().todoListDao().getTodoByUID(todoData.uid);
+
+            if (prevEvent != null) {
+                todoData.updateDB();
+            } else {
+                Log.d(MainActivity.DEBUG_LOG_NAME, "Could not find matching event in database for ID: " + todoData.uid);
+                MainActivity.database.get().eventsDao().insertEvent(TodoData.toDBObject(todoData));
+            }
+
+            findNavController().navigate(R.id.action_eventFragment_to_homeFragment);
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TodoFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TodoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        const val TODO_ID = "todoData"
     }
 }
