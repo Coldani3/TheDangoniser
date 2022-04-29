@@ -22,13 +22,18 @@ import androidx.navigation.fragment.findNavController
 import com.coldani3.dangoniser.MainActivity
 import com.coldani3.dangoniser.R
 import com.coldani3.dangoniser.Util
+import com.coldani3.dangoniser.data.ApiRequests
 import com.coldani3.dangoniser.data.EventData
 import com.coldani3.dangoniser.data.bases.DBCalendarEvent
 import com.coldani3.dangoniser.databinding.FragmentEventBinding
 import com.coldani3.dangoniser.databinding.FragmentEventListBinding
 import com.coldani3.dangoniser.screens.pickers.DatePicker
 import com.coldani3.dangoniser.screens.pickers.TimePicker
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.awaitResponse
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.*
 
@@ -41,6 +46,7 @@ class EventFragment : Fragment() {
     private lateinit var eventData: EventData;
     private lateinit var locationManager: LocationManager;
     private lateinit var binding: FragmentEventBinding;
+    private lateinit var api: ApiRequests;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,6 +67,26 @@ class EventFragment : Fragment() {
             eventData = arguments?.get(MainActivity.EVENT_DATA_PASS_ID) as EventData;
         } else {
             eventData = EventData("Write title here");
+        }
+
+        api = Retrofit.Builder()
+            .baseUrl("https://api.openweathermap.org/data/2.5/weather")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiRequests::class.java);
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val longitudeLatitude: MutableList<Double> = getLongitudeLatitude();
+            val longitude = longitudeLatitude[0];
+            val latitude = longitudeLatitude[1];
+            val response = api.getWeatherForCoords("https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=${MainActivity.WEATHER_API_KEY}").awaitResponse();
+
+            if (response.isSuccessful) {
+                val data = response.body()!!;
+
+                Log.d(MainActivity.DEBUG_LOG_NAME, "How's the weather over there? Good.");
+            }
+
         }
 
         binding.eventName.text = Editable.Factory.getInstance().newEditable(eventData.eventName)

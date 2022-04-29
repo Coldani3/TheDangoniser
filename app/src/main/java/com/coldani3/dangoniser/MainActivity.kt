@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
         const val EVENT_DATA_PASS_ID: String = "eventData";
         const val TODO_DATA_PASS_ID: String = "todoData";
         const val SHARED_PREFERENCES: String = "dangoniser_preferences";
+        //shouldn't be sharing this here but... ugh
+        const val WEATHER_API_KEY: String = "e71bfef5a5b452bab08255bf36230e4c";
         var database: DatabaseSingleton<DangoniserDatabase> = DatabaseSingleton<DangoniserDatabase>();
         const val DEBUG_LOG_NAME: String = "Dangoniser";
     }
