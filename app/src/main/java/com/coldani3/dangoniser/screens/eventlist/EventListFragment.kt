@@ -60,7 +60,7 @@ class EventListFragment : Fragment() {
         var month: Int = selectedDate.get(Calendar.MONTH);
         var day: Int = selectedDate.get(Calendar.DAY_OF_MONTH);
 
-        binding.eventsForDay.text = getString(R.string.events_for_day, year.toString(), month.toString(), day.toString());//"Events for day $year/$month/$day";
+        binding.eventsForDay.text = getString(R.string.events_for_day, year.toString(), (month + 1).toString(), day.toString());//"Events for day $year/$month/$day";
 
         lifecycleScope.launch(Dispatchers.IO) {
             val today: Calendar = Util.startOfDay(selectedDate);
