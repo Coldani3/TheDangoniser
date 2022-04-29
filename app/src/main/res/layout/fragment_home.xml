@@ -11,13 +11,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="5dp">
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/debug">-->
-
-<!--            </LinearLayout>-->
+            <!-- TODO: Improve logo -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/temp_dangoniser_logo"/>
 
             <!-- TODO: Update blank fragment layout -->
             <TextView
