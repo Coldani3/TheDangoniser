@@ -7,8 +7,9 @@
         tools:context="com.coldani3.dangoniser.screens.todo.TodoFragment"
         android:background="@drawable/component_border"
         android:orientation="vertical"
+        android:layout_gravity="bottom"
         android:layout_marginHorizontal="@dimen/scroll_margin"
-        android:layout_marginVertical="@dimen/scroll_margin">
+        android:layout_marginBottom="@dimen/from_bottom">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

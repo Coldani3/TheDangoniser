@@ -2,6 +2,7 @@
 <resources>
     <item name="scroll_width" type="dimen">90%</item>
     <item name="scroll_margin" type="dimen">15dp</item>
+    <item name="from_bottom" type="dimen">100dp</item>
     <array name="title_sizes">
         <item>12sp</item>
         <item>15sp</item>
