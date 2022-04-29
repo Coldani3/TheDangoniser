@@ -78,7 +78,7 @@ class EventListFragment : Fragment() {
                     }
                 } else {
                     binding.events.addItem(
-                        EventData("Sample Event"),
+                        EventData(requireContext().getString(R.string.sample_event)),
                         R.id.action_eventListFragment_to_eventFragment
                     );
                 }
@@ -88,7 +88,7 @@ class EventListFragment : Fragment() {
                         addTodo(TodoData(todo));
                     }
                 } else {
-                    addTodo(TodoData("Sample todo"));
+                    addTodo(TodoData(requireContext().getString(R.string.sample_todo)));
                 }
             }
         }

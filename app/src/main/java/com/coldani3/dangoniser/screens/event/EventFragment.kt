@@ -148,11 +148,11 @@ class EventFragment : Fragment() {
                 }
             } catch (e: IOException) {
                 Log.e(MainActivity.DEBUG_LOG_NAME, Log.getStackTraceString(e));
-                return "Could not get location name ($latitude, $longitude)";
+                return requireContext().getString(R.string.cannot_find_location_lon_lat, longitude.toString(), latitude.toString());
             }
         }
 
-        return "Could not get location";
+        return requireContext().getString(R.string.cannot_find_location);
 
         //https://stackoverflow.com/a/6922448
 //        val locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager;

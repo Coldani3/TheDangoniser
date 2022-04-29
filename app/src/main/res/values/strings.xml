@@ -3,6 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="upcoming_events">Upcoming Events:</string>
     <string name="sample_event">Sample Event</string>
+    <string name="sample_todo">Sample To-do</string>
     <string name="hello_blank_fragment">sans</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -11,6 +12,7 @@
     <string name="done">Done</string>
     <string name="test">Test</string>
     <string name="deletedEvent">Event deleted</string>
+    <string name="deletedTodo">To-do deleted</string>
     <string name="to_do_date">To-do Date:</string>
     <string name="at">At:</string>
     <string name="until">Until:</string>
@@ -24,4 +26,8 @@
     <string name="events_for_day">Events for day %1$s/%2$s/%3$s</string>
     <string name="delete_todo_question">Are you sure you want to delete this to-do?</string>
     <string name="delete_todo_popup_title">Delete To-do %1$s?</string>
+    <string name="delete_event_question">Are you sure you want to delete this to-do?</string>
+    <string name="delete_event_popup_title">Delete To-do %1$s?</string>
+    <string name="cannot_find_location">Cannot find location!</string>
+    <string name="cannot_find_location_lon_lat">Cannot find location name! (%1$s, %2$s)</string>
 </resources>

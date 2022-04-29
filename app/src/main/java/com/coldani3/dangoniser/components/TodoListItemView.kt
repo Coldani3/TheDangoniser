@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -101,6 +102,7 @@ class TodoListItemView : RelativeLayout {
         }
 
         (parent as ViewGroup).removeView(this);
+        Toast.makeText(context, R.string.deletedEvent, Toast.LENGTH_SHORT).show();
     }
 
     private fun callChecked(view: View) {
@@ -142,7 +144,7 @@ class TodoListItemView : RelativeLayout {
 
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.delete_todo_popup_title, todoData!!.title))
-            .setMessage(R.string.delete_todo_question)
+            .setMessage(context.getString(R.string.delete_todo_question))
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok) {
                     dialogInterface, whichButton -> deleteSelf(view);

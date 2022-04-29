@@ -108,8 +108,8 @@ class EventListItemView : RelativeLayout {
         Log.d(MainActivity.DEBUG_LOG_NAME, "Delete button pressed.");
 
         AlertDialog.Builder(context)
-            .setTitle("Delete Event")
-            .setMessage("Are you sure you want to delete this event?")
+            .setTitle(context.getString(R.string.delete_event_popup_title, eventData!!.eventName))
+            .setMessage(R.string.delete_event_question)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok) {
                     dialogInterface, whichButton -> deleteSelf(view);
