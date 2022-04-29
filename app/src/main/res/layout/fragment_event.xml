@@ -46,6 +46,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/weather"
+                        android:id="@+id/weather_label"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/weather_status"
+                        android:layout_toRightOf="@id/weather_label"/>
                     <!-- Date and weather -->
                 </RelativeLayout>
                 <LinearLayout

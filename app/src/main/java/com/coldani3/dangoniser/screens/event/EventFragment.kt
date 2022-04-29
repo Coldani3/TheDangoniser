@@ -31,11 +31,13 @@ import com.coldani3.dangoniser.screens.pickers.DatePicker
 import com.coldani3.dangoniser.screens.pickers.TimePicker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.*
+import kotlin.math.roundToInt
 
 /**
  * A simple [Fragment] subclass.
@@ -70,7 +72,7 @@ class EventFragment : Fragment() {
         }
 
         api = Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/weather")
+            .baseUrl("https://api.openweathermap.org/data/2.5/weather/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiRequests::class.java);
@@ -85,6 +87,11 @@ class EventFragment : Fragment() {
                 val data = response.body()!!;
 
                 Log.d(MainActivity.DEBUG_LOG_NAME, "How's the weather over there? Good.");
+
+                withContext(Dispatchers.Main) {
+                    binding.weatherStatus.text =
+                        data.weather[0].main + ", " + data.weather[0].description;
+                }
             }
 
         }
